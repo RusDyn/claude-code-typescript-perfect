@@ -1,111 +1,164 @@
-# CLAUDE.md - Project Intelligence File
+# CLAUDE.md - Indie Developer Project Intelligence
 
-## Project Overview
-**Name**: [Your Project Name]
-**Type**: TypeScript Microservice / React App / CLI Tool
-**Stage**: Development / Production
-**Team Size**: [Number] developers
+## Project Context
+**Team Size**: 1-3 developers (or non-developers using Claude Code)
+**Architecture**: Monolith with clean separation
+**Database**: PostgreSQL (simple setup)
+**API**: REST with TypeScript
+**Auth**: JWT tokens (keep it simple)
+**Deployment**: Single server or Vercel/Netlify
 
-## Architecture (CRITICAL - Shapes all responses)
-- **Pattern**: Monolith / Microservices / Serverless
-- **Database**: PostgreSQL with Prisma ORM
-- **API Style**: REST / GraphQL / tRPC
-- **Auth**: JWT / OAuth2 / Session-based
+## TypeScript Standards That Matter
 
-## Code Standards (Reduces corrections by 80%)
+### Essential Rules
+- Explicit return types on exported functions
+- `strict: true` in tsconfig.json
+- No `any` types - use `unknown` with type guards
+- Use built-in utility types: `Pick`, `Omit`, `Partial`
 
-### TypeScript Mandates
-1. **Explicit return types** on ALL functions
-2. **No `any` type** - use `unknown` with guards
-3. **Result<T,E> pattern** for errors (no throw)
-4. **Readonly** for all props interfaces
-5. **Branded types** for domain primitives
+### Patterns Claude Code Handles Best
+```typescript
+// Standard async/await pattern
+async function getUser(id: string): Promise<User | null> {
+  try {
+    const response = await fetch(`/api/users/${id}`);
+    if (!response.ok) return null;
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to fetch user:', error);
+    return null;
+  }
+}
 
-### Naming Conventions
-- Files: `kebab-case.ts`
-- Interfaces: `PascalCase` (no I prefix)
-- Types: `PascalCase`
-- Functions: `camelCase`
-- Constants: `UPPER_SNAKE_CASE`
+// Simple API response structure
+interface ApiResponse<T> {
+  data: T;
+  success: boolean;
+  message?: string;
+}
 
-### Import Order (Auto-enforced)
-1. Node built-ins
-2. External packages
-3. Internal aliases (@/...)
-4. Relative imports
-5. Type imports last
+// Clean interface patterns
+interface User {
+  readonly id: string;
+  readonly email: string;
+  readonly name: string;
+  readonly createdAt: string;
+}
 
-## Common Commands
-```bash
-npm run dev        # Start with hot-reload
-npm run build      # Type-check + compile
-npm run test       # Run test suite
-npm run lint:fix   # Fix all auto-fixable issues
-npm run typecheck  # Validate types only
-npm run quality    # Full quality check
+type CreateUser = Omit<User, 'id' | 'createdAt'>;
+type UpdateUser = Partial<Pick<User, 'name' | 'email'>>;
 ```
 
 ## Project Structure
 ```
 src/
-├── types/       # Shared TypeScript types
-├── services/    # Business logic
-├── utils/       # Helper functions
-├── api/         # API routes/handlers
-└── index.ts     # Entry point
+├── types/          # Shared TypeScript types
+├── utils/          # Helper functions
+├── api/            # API routes/handlers  
+├── components/     # React components (if applicable)
+├── pages/          # Route handlers
+└── index.ts        # Entry point
 ```
 
-## Error Handling Pattern
+## Quality Checks
+```bash
+# These run automatically via git hooks
+npm run typecheck   # TypeScript validation
+npm run lint        # ESLint fixes
+npm run test        # Unit tests
+npm run build       # Production build
+```
+
+## Error Handling Strategy
 ```typescript
-// ALWAYS use this pattern, never throw
-type Result<T, E = Error> = 
-  | { success: true; data: T }
-  | { success: false; error: E };
-
-// Example usage
-async function getUser(id: string): Promise<Result<User>> {
-  const user = await findById(id);
-  if (!user) {
-    return { success: false, error: new NotFoundError('User', id) };
+// Keep error handling simple and predictable
+async function saveUser(user: CreateUser): Promise<{ success: boolean; error?: string }> {
+  try {
+    const result = await db.user.create({ data: user });
+    return { success: true };
+  } catch (error) {
+    console.error('Save user failed:', error);
+    return { success: false, error: 'Failed to save user' };
   }
-  return { success: true, data: user };
 }
+
+// For APIs, consistent error responses
+app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error('API Error:', error);
+  res.status(500).json({
+    success: false,
+    message: process.env.NODE_ENV === 'development' ? error.message : 'Internal error'
+  });
+});
 ```
 
-## Testing Requirements
-- Unit tests for all business logic (>80% coverage)
-- Integration tests for API endpoints
-- Use describe/it pattern
-- Mock external services
+## Testing Approach
+- **Unit tests**: Test your functions (aim for 80%+ coverage)
+- **Integration tests**: Test API endpoints
+- **Keep it simple**: Don't over-test, focus on business logic
 
-## Performance Budgets
-- Build time: <30 seconds
-- Test suite: <60 seconds  
-- Bundle size: <500KB gzipped
-- First paint: <1.5 seconds
+```typescript
+// Simple, effective test patterns
+describe('getUser', () => {
+  test('returns user when found', async () => {
+    const user = await getUser('123');
+    expect(user).toMatchObject({ id: '123' });
+  });
 
-## Security Patterns
-- Input validation with Zod
-- SQL injection prevention via Prisma
-- XSS prevention (DOMPurify for user content)
-- Rate limiting on all endpoints
+  test('returns null when not found', async () => {
+    const user = await getUser('nonexistent');
+    expect(user).toBeNull();
+  });
+});
+```
 
-## Debugging Approach
-1. Reproduce with minimal test case
-2. Check error logs first
-3. Use debugger, not console.log
-4. Write test to catch regression
+## Development Workflow
+```bash
+npm run dev         # Start development server
+npm run test:watch  # Run tests in watch mode
+npm run build       # Build for production
+npm run start       # Start production server
+```
 
-## DO NOT (Common mistakes)
-- ❌ Use `as` type assertions without validation
-- ❌ Disable TypeScript errors with @ts-ignore
-- ❌ Mix async/await with .then()
-- ❌ Mutate function parameters
-- ❌ Use `var` or undeclared variables
-- ❌ Ignore error handling
+## Security Essentials
+- Validate all inputs with Zod schemas
+- Use parameterized queries (Prisma handles this)
+- Hash passwords with bcrypt
+- Validate JWT tokens properly
+- Rate limit API endpoints (express-rate-limit)
 
-## External Services
-- Sentry for error tracking
-- DataDog for metrics
-- GitHub Actions for CI/CD
-- Vercel for deployment
+## Performance Guidelines
+- Bundle size target: <500KB gzipped
+- API responses: <500ms for most endpoints
+- Database queries: Use indexes for common queries
+- Images: Compress and use WebP when possible
+
+## Common Commands
+```bash
+# Database
+npm run db:migrate  # Apply database changes
+npm run db:seed     # Add sample data
+
+# Development
+npm run lint:fix    # Fix linting issues
+npm run type:check  # Check types only
+npm run clean       # Clean build artifacts
+```
+
+## Tools That Help Claude Code
+- **ESLint**: Catches issues before Claude Code sees them
+- **Prettier**: Consistent formatting
+- **Husky**: Git hooks for quality
+- **TypeScript strict mode**: Better error catching
+- **Simple folder structure**: Easy for Claude Code to navigate
+
+## What to Avoid
+- Complex architectural patterns (microservices, CQRS, event sourcing)
+- Custom build tools (stick to Vite, Next.js, or similar)
+- Over-engineering (YAGNI principle)
+- Deep inheritance hierarchies
+- Overly complex type manipulations
+
+---
+
+*Optimized for solo developers and small teams using Claude Code for maximum productivity with minimal complexity.*
