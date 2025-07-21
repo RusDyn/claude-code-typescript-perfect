@@ -1,0 +1,52 @@
+name: Bug Report (Automated)
+description: Automated bug report from code scanning
+labels: ["bug", "automated-scan"]
+body:
+  - type: markdown
+    attributes:
+      value: "## Automated Bug Report"
+  
+  - type: input
+    id: location
+    attributes:
+      label: Code Location
+      description: File path and line number
+      placeholder: "src/services/user.service.ts:45"
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Critical - Production impact
+        - High - Affects core functionality
+        - Medium - Degraded experience
+        - Low - Minor issue
+    validations:
+      required: true
+  
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue Description
+      description: What's wrong with the code
+    validations:
+      required: true
+  
+  - type: textarea
+    id: context
+    attributes:
+      label: Code Context
+      description: The problematic code
+      render: typescript
+    validations:
+      required: true
+  
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Fix
+      description: How to fix this issue
+      render: typescript

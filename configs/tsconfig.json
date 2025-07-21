@@ -1,0 +1,61 @@
+{
+  "compilerOptions": {
+    // Modern JavaScript output
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    
+    // MAXIMUM STRICTNESS - Non-negotiable for Claude Code
+    "strict": true,                           // Enable all strict checks
+    "noUncheckedIndexedAccess": true,        // arr[0] might be undefined
+    "exactOptionalPropertyTypes": true,       // { x?: string } !== { x: string | undefined }
+    "noPropertyAccessFromIndexSignature": true, // Explicit index access only
+    "noImplicitOverride": true,              // Explicit override keyword
+    
+    // Additional safety nets
+    "noImplicitReturns": true,               // All paths must return
+    "noFallthroughCasesInSwitch": true,      // Explicit break/return in switch
+    "noUnusedLocals": true,                  // No unused variables
+    "noUnusedParameters": true,              // No unused parameters
+    "allowUnreachableCode": false,           // No dead code
+    "allowUnusedLabels": false,              // No unused labels
+    "noImplicitAny": true,                   // Already in strict, but explicit
+    "strictNullChecks": true,                // null/undefined checking
+    "strictFunctionTypes": true,             // Contravariant parameter checking
+    "strictBindCallApply": true,             // Type-check bind/call/apply
+    "strictPropertyInitialization": true,     // Class props must be initialized
+    "alwaysStrict": true,                    // Emit 'use strict'
+    
+    // Import handling
+    "verbatimModuleSyntax": true,            // Preserve import/export syntax
+    "forceConsistentCasingInFileNames": true, // Prevent case issues
+    "esModuleInterop": true,                 // Better CommonJS interop
+    "skipLibCheck": true,                    // Skip .d.ts checking (performance)
+    "resolveJsonModule": true,               // Import JSON files
+    "isolatedModules": true,                 // Each file is a module
+    
+    // Path aliases for Claude Code clarity
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/types": ["src/types/index"],
+      "@/utils": ["src/utils/index"],
+      "@/services": ["src/services/index"]
+    },
+    
+    // Output options
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "removeComments": false,  // Keep JSDoc for Claude Code
+    
+    // Incremental compilation
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "coverage", "**/*.test.ts"]
+}
