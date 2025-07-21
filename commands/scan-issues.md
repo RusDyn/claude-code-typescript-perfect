@@ -1,52 +1,33 @@
 # Scan Codebase for Issues: $ARGUMENTS
 
-## Scanning Process
+I'll scan your codebase for common issues and create a report.
 
-1. **Code Quality Scan**
-   Use filesystem to analyze code for:
-   - TODO/FIXME/HACK comments
-   - TypeScript `@ts-ignore` or `@ts-expect-error`
-   - Disabled linting rules
-   - Console.log statements
-   - Hardcoded values that should be config
-   - Missing error handling
-   - Performance bottlenecks (O(n²) loops, etc.)
+## What I'll Check
 
-2. **Security Scan**
-   Check for:
-   - Hardcoded credentials or API keys
-   - SQL injection vulnerabilities
-   - Missing input validation
-   - Exposed sensitive data in logs
-   - Missing authentication checks
+**Code Quality:**
+- TODO/FIXME comments
+- Console.log statements  
+- TypeScript @ts-ignore usage
+- Hardcoded values
+- Missing error handling
 
-3. **Technical Debt Scan**
-   Identify:
-   - Deprecated API usage
-   - Missing tests for critical paths
-   - Overly complex functions (high cyclomatic complexity)
-   - Duplicate code blocks
-   - Inconsistent patterns
+**Security:**
+- Hardcoded credentials
+- Missing input validation
+- SQL injection risks
 
-## GitHub Issue Check
+**Technical Debt:**
+- Deprecated API usage
+- Missing tests
+- Complex functions
+- Duplicate code
 
-For each found issue:
-1. Use github mcp to search existing issues
-2. Check if issue already reported (by title/label match)
-3. If exists: add comment with additional context
-4. If new: create issue with proper formatting
+## Output
 
-## Issue Format Template
+I'll provide a prioritized list of issues found with:
+- Location (file:line)
+- Issue description
+- Suggested fix
+- Priority level
 
-Title: [Type] Brief description - File:Line
-Labels: bug/tech-debt/security/performance, priority-level
-Body:
-- **Location**: `src/path/to/file.ts:42`
-- **Type**: [Issue category]
-- **Description**: [What's wrong]
-- **Impact**: [Who/what is affected]
-- **Suggested Fix**: [Proposed solution]
-- **Code Context**:
-  ```typescript
-  [relevant code snippet]
-  ```
+Let me know which directories to scan and I'll get started.

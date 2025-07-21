@@ -1,64 +1,28 @@
 # Fix GitHub Issue: $ARGUMENTS
 
-## Pre-Fix Verification
+I'll help you fix a GitHub issue systematically.
 
-1. **Fetch Issue Details**
-   ```
-   Use github mcp to get issue #[NUMBER]:
-   - Read full description
-   - Check comments for additional context
-   - Note acceptance criteria
-   - Review linked PRs
-   ```
+## Process
 
-2. **Reproduce Issue**
-   - Locate the code mentioned
-   - Verify the issue still exists
-   - Create failing test if applicable
+1. **Understand the Issue**
+   - Read the issue description
+   - Check comments for context
+   - Identify the problem location
 
-## Implementation Process
+2. **Create Fix**
+   - Create feature branch: `fix/issue-NUMBER-description`
+   - Implement the solution
+   - Follow project patterns from CLAUDE.md
+   - Add tests if needed
 
-1. **Create Feature Branch**
-   ```bash
-   git checkout -b fix/issue-[NUMBER]-brief-description
-   ```
+3. **Validate**
+   - Run quality checks: `npm run quality`
+   - Test the fix works
+   - Check no regressions
 
-2. **Implement Fix**
-   - Follow patterns in CLAUDE.md
-   - Use Result<T,E> for error handling
-   - Add comprehensive tests
-   - Update documentation
+4. **Submit**
+   - Create PR with title: "Fix #NUMBER: Issue Title"
+   - Link to the issue
+   - Describe what was fixed and how to test
 
-3. **Validation**
-   - Run `npm run quality`
-   - Ensure all tests pass
-   - Check no new issues introduced
-
-## GitHub Integration
-
-1. **Create Pull Request**
-   Use github mcp to:
-   - Create PR with title: "Fix #[NUMBER]: [Issue Title]"
-   - Link to issue automatically
-   - Add description with:
-     - What was broken
-     - How it was fixed
-     - How to test
-   - Request reviewers
-
-2. **Update Issue**
-   - Add comment: "PR #[PR_NUMBER] addresses this issue"
-   - Add label: "in-review"
-   - Link PR to issue
-
-## Post-Merge Actions
-
-1. **Verify Deployment**
-   - Confirm fix in staging
-   - Run smoke tests
-
-2. **Close Issue**
-   - Add final comment with verification
-   - Close with message: "Fixed in #[PR_NUMBER]"
-   - Remove "in-review" label
-   - Add "resolved" label
+Provide the issue number or URL and I'll guide you through the fix.
