@@ -119,12 +119,38 @@ This template is a complete TypeScript project ready to use with Claude Code:
 ## Usage
 
 ### Custom Commands
+
+**What are custom commands?** Pre-built workflows that give Claude Code structured approaches to common development tasks. Instead of re-explaining your process each time, commands provide consistent, repeatable workflows.
+
 Run Claude Code commands directly:
 ```bash
 claude /feature "Add user authentication"
 claude /debug "Login not working"  
 claude /performance "Optimize API response times"
 ```
+
+#### Available Commands
+
+**Development Workflow Commands:**
+- [`/feature`](.claude/commands/feature.md) - Structured feature development with planning, implementation, and testing phases
+- [`/debug`](.claude/commands/debug.md) - Systematic debugging workflow with root cause analysis and fix validation
+- [`/performance`](.claude/commands/performance.md) - Performance optimization checklist with profiling and monitoring
+
+**Code Quality Commands:**
+- [`/scan-issues`](.claude/commands/scan-issues.md) - Comprehensive code quality analysis including security, performance, and maintainability
+- [`/fix-issue`](.claude/commands/fix-issue.md) - Step-by-step issue resolution with testing and documentation
+- [`/simplify`](.claude/commands/simplify.md) - Code simplification patterns to reduce complexity while maintaining functionality
+- [`/check-duplicates`](.claude/commands/check-duplicates.md) - Duplicate code detection and consolidation recommendations
+
+**Operations Commands:**
+- [`/incident`](.claude/commands/incident.md) - Incident response workflow for production issues with triage and communication
+- [`/post-incident`](.claude/commands/post-incident.md) - Post-incident analysis with root cause identification and prevention strategies
+
+Each command includes:
+- **Context gathering** - Analyzes your codebase before suggesting changes
+- **Step-by-step workflow** - Breaks complex tasks into manageable steps  
+- **Quality checks** - Ensures changes follow your project standards
+- **Documentation** - Updates relevant docs and comments
 
 ### Available Scripts
 ```bash
@@ -139,19 +165,33 @@ npm run type-check  # TypeScript validation
 
 ### MCP Servers (Recommended)
 
-Enhance Claude Code with external tool integrations:
+**What are MCPs?** Model Context Protocol servers extend Claude Code with external tool integrations, giving it access to databases, APIs, file systems, and specialized development tools. They dramatically enhance Claude's capabilities beyond its built-in tools.
+
+Enhance Claude Code with these proven MCP integrations:
 
 ```bash
 # Essential: Better context understanding (reduces errors by 40%)
 claude mcp add context7 -s user -- npx @context7/mcp-server
+```
+[Context7 Repository](https://github.com/context7/mcp-server) - Advanced codebase understanding and context management
 
+```bash
 # TypeScript: Real-time type checking and analysis
 claude mcp add typescript-lsp -s user -- npx @typescript/mcp-server
+```
+[TypeScript LSP Repository](https://github.com/typescript-language-server/typescript-language-server) - Language server protocol integration for TypeScript
 
+```bash
 # GitHub: Direct repository integration
 claude mcp add github -s user -- npx @modelcontextprotocol/server-github
 export GITHUB_PERSONAL_ACCESS_TOKEN="your_token_here"
 ```
+[GitHub MCP Server Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/github) - Official GitHub integration for repository management
+
+**Additional Useful MCPs:**
+- [**Database MCP**](https://github.com/modelcontextprotocol/servers/tree/main/src/sqlite) - SQLite database operations
+- [**File System MCP**](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem) - Enhanced file operations
+- [**Web Search MCP**](https://github.com/modelcontextprotocol/servers/tree/main/src/brave-search) - Brave Search integration for research
 
 ### Quality Gates
 
