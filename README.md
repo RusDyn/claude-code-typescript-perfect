@@ -27,7 +27,7 @@ This template provides all six out of the box.
 
 ```bash
 # Create new project from this template
-gh repo create my-project --template user/claude-code-typescript-perfect --private
+gh repo create my-project --template RusDyn/claude-code-typescript-perfect --private
 cd my-project
 
 # Install dependencies and setup
@@ -39,7 +39,7 @@ npx husky init
 
 ```bash
 # Clone this template
-git clone https://github.com/user/claude-code-typescript-perfect.git my-project
+git clone https://github.com/RusDyn/claude-code-typescript-perfect.git my-project
 cd my-project
 
 # Make it your own
