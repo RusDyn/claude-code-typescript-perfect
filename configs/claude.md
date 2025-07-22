@@ -1,5 +1,11 @@
 # CLAUDE.md - Indie Developer Project Intelligence
 
+## Critical Instructions for Claude Code
+- Do what has been asked; nothing more, nothing less
+- NEVER create files unless they're absolutely necessary for achieving your goal
+- ALWAYS prefer editing an existing file to creating a new one
+- NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User
+
 ## Project Context
 **Team Size**: 1-3 developers (or non-developers using Claude Code)
 **Architecture**: Monolith with clean separation
@@ -144,6 +150,54 @@ npm run lint:fix    # Fix linting issues
 npm run type:check  # Check types only
 npm run clean       # Clean build artifacts
 ```
+
+## Code Quality Standards
+
+### Simplicity First
+- Choose the simplest solution that meets requirements
+- Avoid premature optimization or overengineering
+- Prefer composition over inheritance
+- Use existing patterns before creating new ones
+
+### Duplication Prevention
+- Always check existing implementations before creating new ones
+- Reuse existing utilities, types, and patterns
+- Extract common patterns into shared utilities only when used 3+ times
+- Document existing solutions in this file for Claude reference
+
+### Complexity Guidelines
+- Functions should have single responsibility
+- Avoid deeply nested conditionals (max 3 levels)
+- Use early returns to reduce nesting
+- Break complex functions into smaller, focused ones
+
+## Architecture Patterns
+
+### Before Adding New Code
+1. Check if similar functionality exists in the codebase
+2. Verify the new feature aligns with existing patterns
+3. Consider extending existing components rather than creating new ones
+
+### Existing Components/Modules
+- Authentication: `src/auth/` - JWT-based with refresh tokens
+- API Layer: `src/api/` - REST endpoints with TypeScript
+- Utilities: `src/utils/` - Common helper functions
+- Types: `src/types/` - Shared TypeScript definitions
+
+## Development Standards
+
+### Testing Requirements
+- All new functions must have unit tests
+- Integration tests for API endpoints
+- E2E tests for user-facing features
+- Run `npm test` before any commit
+
+### Code Review Checklist
+- [ ] Follows existing patterns
+- [ ] Has appropriate tests
+- [ ] Includes JSDoc comments
+- [ ] No duplicate functionality
+- [ ] Handles errors appropriately
 
 ## Tools That Help Claude Code
 - **ESLint**: Catches issues before Claude Code sees them

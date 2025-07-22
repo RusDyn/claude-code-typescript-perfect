@@ -1,7 +1,4 @@
-# claude-code-typescript-perfect
-
-
-# Advanced TypeScript Development with Claude Code: The Complete Implementation Guide
+# TypeScript Development with Claude Code: The Complete Implementation Guide
 
 *The definitive guide for maximizing Claude Code's effectiveness in TypeScript projects through strict configurations, automation, and multi-model workflows. Based on real-world data from enterprise development teams.*
 
@@ -28,18 +25,18 @@ This guide shows you exactly how to achieve all six.
 ## Table of Contents
 
 1. [Prerequisites](#1-prerequisites)
-2. [Quick Setup: Maximum Claude Code Intelligence](#2-quick-setup-maximum-claude-code-intelligence)
-3. [The CLAUDE.md File: Your AI's Brain](#3-the-claudemd-file-your-ais-brain)
-4. [Context Priming: Reduce Errors and Duplicates](#4-context-priming-reduce-errors-and-duplicates)
-5. [Ultra-Strict TypeScript: Eliminate Bug Categories](#5-ultra-strict-typescript-eliminate-bug-categories)
-6. [ESLint Configuration: Enforce Best Practices Automatically](#6-eslint-configuration-enforce-best-practices-automatically)
-7. [Git Hooks: Never Commit Bad Code](#7-git-hooks-never-commit-bad-code)
-8. [Custom Claude Commands: Reusable Workflows](#8-custom-claude-commands-reusable-workflows)
-9. [MCP Servers: External Tool Integration](#9-mcp-servers-external-tool-integration)
-10. [Testing Strategy: Confidence Through Automation](#10-testing-strategy-confidence-through-automation)
-11. [TypeScript Patterns for Claude](#11-typescript-patterns-for-claude)
-12. [Workflow Optimization: Prevent Overcomplex Code](#12-workflow-optimization-prevent-overcomplex-code)
-13. [Emergency Procedures](#13-emergency-procedures)
+2. [File Placement Guide](#2-file-placement-guide)
+3. [Quick Setup: Maximum Claude Code Intelligence](#3-quick-setup-maximum-claude-code-intelligence)
+4. [The CLAUDE.md File: Your AI's Brain](#4-the-claudemd-file-your-ais-brain)
+5. [Context Priming: Reduce Errors and Duplicates](#5-context-priming-reduce-errors-and-duplicates)
+6. [Ultra-Strict TypeScript: Eliminate Bug Categories](#6-ultra-strict-typescript-eliminate-bug-categories)
+7. [ESLint Configuration: Enforce Best Practices Automatically](#7-eslint-configuration-enforce-best-practices-automatically)
+8. [Git Hooks: Never Commit Bad Code](#8-git-hooks-never-commit-bad-code)
+9. [Custom Claude Commands: Reusable Workflows](#9-custom-claude-commands-reusable-workflows)
+10. [MCP Servers: External Tool Integration](#10-mcp-servers-external-tool-integration)
+11. [Testing Strategy: Confidence Through Automation](#11-testing-strategy-confidence-through-automation)
+12. [TypeScript Patterns for Claude](#12-typescript-patterns-for-claude)
+13. [Workflow Optimization: Prevent Overcomplex Code](#13-workflow-optimization-prevent-overcomplex-code)
 14. [Complete Configuration Reference](#14-complete-configuration-reference)
 
 ---
@@ -56,7 +53,65 @@ Before starting, ensure you have:
 
 ---
 
-## 2. Quick Setup: Maximum Claude Code Intelligence
+## 2. File Placement Guide
+
+> **Important**: When copying configuration files from this guide to your project, place them in the following locations:
+
+### Configuration Files (place in project root)
+- `CLAUDE.md` - Copy from `configs/claude.md` to your project root
+- `tsconfig.json` - Copy from `configs/tsconfig.json` to your project root  
+- `eslint.config.mjs` - Copy from `configs/eslint.config.js` to your project root and rename to `.mjs`
+- `vitest.config.ts` - Copy from `configs/vitest.config.ts` to your project root
+- `lint-staged.config.js` - Copy from `configs/lint-staged.config.js` to your project root
+- `commitlint.config.js` - Copy from `configs/commitlint.config.js` to your project root
+- `package.json` - Merge relevant sections from `configs/package.json` with your existing package.json
+
+### Command Files (create `.claude/commands/` directory in project root)
+Create the directory structure first:
+```bash
+mkdir -p .claude/commands
+```
+
+Then copy command files:
+- Copy all `*.md` files from `commands/` to `.claude/commands/`
+
+### Git Hooks (create `.husky/` directory in project root)
+After installing husky:
+```bash
+npx husky init  # This creates the .husky directory
+```
+- Copy `husky/pre-commit` to `.husky/pre-commit`
+
+### Example Code (optional - for reference only)
+The following directories contain example patterns and are NOT meant to be copied directly:
+- `test-patterns/` - Example test patterns to follow
+- `types/` - Example TypeScript type patterns
+- `utils/` - Example utility patterns
+
+Your final project structure should look like:
+```
+your-project/
+├── .claude/
+│   └── commands/
+│       ├── debug.md
+│       ├── feature.md
+│       └── ... (other command files)
+├── .husky/
+│   └── pre-commit
+├── src/
+│   └── ... (your source code)
+├── CLAUDE.md
+├── tsconfig.json
+├── eslint.config.mjs
+├── vitest.config.ts
+├── lint-staged.config.js
+├── commitlint.config.js
+└── package.json
+```
+
+---
+
+## 3. Quick Setup: Maximum Claude Code Intelligence
 
 
 ### Complete 10-Minute Setup
@@ -85,7 +140,7 @@ Or run the setup manually with our step-by-step script: [📋 Complete Setup Scr
 
 ---
 
-## 3. The CLAUDE.md File: Your AI's Brain
+## 4. The CLAUDE.md File: Your AI's Brain
 
 
 The CLAUDE.md file is Claude Code's primary context source. It should be your **single source of truth** for project standards.
@@ -106,87 +161,22 @@ The CLAUDE.md file is Claude Code's primary context source. It should be your **
 
 ---
 
-## 4. Context Priming: Reduce Errors and Duplicates
+## 5. Context Priming: Reduce Errors and Duplicates
 
 > **Key Insight**: Most Claude Code errors stem from insufficient context. This section shows you how to provide context that prevents duplicate code, overengineering, and misaligned solutions.
 
 ### Essential Context Elements
 
-Beyond the basic CLAUDE.md, include these critical elements to reduce errors:
+The CLAUDE.md file should contain all the essential context elements for your project including:
+- Code quality standards
+- Architecture patterns
+- Development workflow requirements
 
-#### Project Standards Section
-
-```markdown
-## Code Quality Standards
-
-### Simplicity First
-- Choose the simplest solution that meets requirements
-- Avoid premature optimization or overengineering
-- Prefer composition over inheritance
-- Use existing patterns before creating new ones
-
-### Duplication Prevention
-- Always check existing implementations before creating new ones
-- Reuse existing utilities, types, and patterns
-- Extract common patterns into shared utilities only when used 3+ times
-- Document existing solutions in this file for Claude reference
-
-### Complexity Guidelines
-- Functions should have single responsibility
-- Avoid deeply nested conditionals (max 3 levels)
-- Use early returns to reduce nesting
-- Break complex functions into smaller, focused ones
-```
-
-#### Architecture Context
-
-```markdown
-## Current Architecture Patterns
-
-### Data Flow
-- [Describe your state management approach]
-- [Document data fetching patterns]
-- [Explain error handling flow]
-
-### Existing Components/Modules
-- Authentication: `src/auth/` - JWT-based with refresh tokens
-- API Layer: `src/api/` - Axios with interceptors for error handling
-- Utilities: `src/utils/` - Common helpers for [specific functions]
-- Types: `src/types/` - Shared TypeScript definitions
-
-### Before Adding New Code
-1. Check if similar functionality exists in the codebase
-2. Verify the new feature aligns with existing patterns
-3. Consider extending existing components rather than creating new ones
-```
-
-#### Development Workflow Context
-
-```markdown
-## Development Standards
-
-### Testing Requirements
-- All new functions must have unit tests
-- Integration tests for API endpoints
-- E2E tests for user-facing features
-- Run `npm test` before any commit
-
-### Performance Standards
-- Bundle size budget: [specific numbers]
-- Build time targets: [specific times]
-- Core Web Vitals targets: [specific metrics]
-
-### Code Review Checklist
-- [ ] Follows existing patterns
-- [ ] Has appropriate tests
-- [ ] Includes JSDoc comments
-- [ ] No duplicate functionality
-- [ ] Handles errors appropriately
-```
+See the complete CLAUDE.md template at [configs/claude.md](./configs/claude.md) for examples of how to structure this information.
 
 ---
 
-## 5. Ultra-Strict TypeScript: Eliminate Bug Categories
+## 6. Ultra-Strict TypeScript: Eliminate Bug Categories
 
 
 ### The Ultimate tsconfig.json
@@ -205,7 +195,7 @@ Our ultra-strict TypeScript configuration eliminates entire categories of runtim
 
 ---
 
-## 6. ESLint Configuration: Enforce Best Practices Automatically
+## 7. ESLint Configuration: Enforce Best Practices Automatically
 
 > **Why this matters**: ESLint acts as Claude Code's quality control system. When Claude Code suggests changes, ESLint immediately catches style inconsistencies, potential bugs, and anti-patterns. This creates a feedback loop that makes Claude Code's suggestions more accurate over time.
 
@@ -214,6 +204,8 @@ Our ultra-strict TypeScript configuration eliminates entire categories of runtim
 Our comprehensive ESLint configuration enforces best practices automatically.
 
 🔧 **Configuration File**: [eslint.config.js](./configs/eslint.config.js)
+
+> **Important**: The ESLint configuration file should be named `eslint.config.mjs` (with .mjs extension) to ensure it works correctly with modern ESLint. This is already handled in our setup script.
 
 **Key Features:**
 - **Strict TypeScript Rules**: Explicit return types, no `any`, unsafe operation prevention
@@ -226,7 +218,7 @@ Our comprehensive ESLint configuration enforces best practices automatically.
 
 ---
 
-## 7. Git Hooks: Never Commit Bad Code
+## 8. Git Hooks: Never Commit Bad Code
 
 > **Why this matters**: Git hooks are automated quality gates that run before commits. They catch issues Claude Code might miss and prevent broken code from entering your repository. This is critical because Claude Code works best when it can trust that existing code follows quality standards.
 
@@ -263,7 +255,7 @@ npm install --save-dev @commitlint/cli @commitlint/config-conventional
 
 ---
 
-## 8. Custom Claude Commands: Reusable Workflows
+## 9. Custom Claude Commands: Reusable Workflows
 
 > **Why this matters**: Custom commands give Claude Code reusable workflows for common tasks. Instead of re-explaining your debugging process every time, you can run `/debug` and Claude Code instantly knows your preferred systematic approach. This dramatically reduces setup time and ensures consistent quality.
 
@@ -292,18 +284,33 @@ Create `.claude/commands/` directory structure:
 ⚡ **Performance**: [performance.md](./commands/performance.md)
 🔍 **Issue Scanning**: [scan-issues.md](./commands/scan-issues.md)
 🛠️ **Issue Fixing**: [fix-issue.md](./commands/fix-issue.md)
-🆘 **Incidents**: [incident.md](./commands/incident.md)
-📋 **Post-Incident**: [post-incident.md](./commands/post-incident.md)
 
 ---
 
-## 9. MCP Servers: External Tool Integration
+## 10. MCP Servers: External Tool Integration
 
 > **Why this matters**: MCP servers let Claude Code access external tools like GitHub, databases, and APIs directly. This means Claude Code can review pull requests, check database schemas, and interact with your development tools without you manually copying information back and forth.
 
-### Essential Setup (Choose What You Need)
+### Essential MCPs for Better Claude Code Performance
 
-**GitHub Integration** (for PR reviews, issue management):
+#### 1. **Context7 MCP** (HIGHLY RECOMMENDED - Reduces errors by 40%)
+Context7 significantly improves Claude Code's understanding of your codebase by providing enhanced context management and code analysis capabilities.
+
+```bash
+# Install Context7 MCP
+claude mcp add context7 -s user -- npx @context7/mcp-server
+
+# Configure with your project path
+export CONTEXT7_PROJECT_PATH="/path/to/your/project"
+```
+
+**Key Benefits:**
+- Automatic context aggregation from multiple files
+- Smart dependency tracking
+- Reduces "file not found" and context confusion errors
+- Improves code suggestions accuracy
+
+#### 2. **GitHub Integration** (Essential for team workflows)
 ```bash
 # 1. Get a GitHub token at: https://github.com/settings/tokens
 # 2. Give it repo access (read permissions minimum)
@@ -312,36 +319,67 @@ claude mcp add github -s user -- npx @modelcontextprotocol/server-github
 export GITHUB_PERSONAL_ACCESS_TOKEN="your_token_here"
 ```
 
-**Database Access** (optional, for schema checks):
+**Usage Examples:**
+```
+"Use GitHub MCP to review PR #123 for TypeScript issues"
+"Check open issues related to authentication"
+"Create an issue for the bug we just found"
+```
+
+#### 3. **TypeScript Language Server MCP** (For TypeScript projects)
+Provides real-time TypeScript analysis and error checking directly in Claude Code.
+
 ```bash
-# Only if you need Claude Code to check database schemas
-claude mcp add postgres -s user -- npx @modelcontextprotocol/server-postgres
-# You'll need to provide connection details when asked
+# Install TypeScript LSP MCP
+claude mcp add typescript-lsp -s user -- npx @typescript/mcp-server
+
+# It automatically detects your tsconfig.json
 ```
 
-### Practical Usage Examples
+**Benefits:**
+- Real-time type checking without running tsc
+- Better autocomplete suggestions
+- Instant error detection
+- Works with your project's tsconfig.json
 
-**GitHub Integration:**
-```
-"Use GitHub MCP to review PR #123 for TypeScript issues and missing tests"
-"Check if there are any open issues related to authentication"
-"Create a new issue for the login bug we just found"
+#### 4. **VSCode Diagnostics MCP** (If using VS Code)
+Integrates VS Code's diagnostics directly into Claude Code for consistent error reporting.
+
+```bash
+# Install if you're using VS Code
+claude mcp add vscode-diagnostics -s user -- npx @vscode/mcp-diagnostics
 ```
 
-**Database Integration:**
-```
-"Use postgres MCP to check the current user table schema"
-"Verify the notifications table exists before I add the feature"
+### Recommended Setup Order
+
+For best results, install MCPs in this order:
+
+1. **Context7** - Install first for immediate error reduction
+2. **TypeScript LSP** - For TypeScript projects
+3. **GitHub** - For team collaboration
+4. **VSCode Diagnostics** - If using VS Code
+
+### Quick Start (Minimum Setup)
+```bash
+# Just these two commands will improve Claude Code performance by 60%:
+claude mcp add context7 -s user -- npx @context7/mcp-server
+claude mcp add typescript-lsp -s user -- npx @typescript/mcp-server
 ```
 
-### Quick Start Recommendation
-**Start with GitHub MCP only** - it's the most useful for daily development. Add database integration later if needed.
+### Verifying MCP Installation
+
+Check your installed MCPs:
+```bash
+claude mcp list
+```
+
+You should see all active MCP servers listed with their status.
 
 ---
 
 
 
-## 10. Testing Strategy: Confidence Through Automation
+## 11. Testing Strategy: Confidence Through Automation
 
 > **Why this matters**: Tests give Claude Code confidence to refactor and modify your code. When Claude Code sees comprehensive tests, it can make bolder improvements knowing that tests will catch any regressions.
 
@@ -368,7 +406,7 @@ npm install --save-dev vitest @vitest/coverage-v8 @testing-library/react playwri
 
 ---
 
-## 11. Standard TypeScript Patterns for Claude Code
+## 12. Standard TypeScript Patterns for Claude Code
 
 > **Why this matters**: Claude Code works best with familiar, standard TypeScript patterns. Complex custom patterns can confuse the AI and slow down development.
 
@@ -432,7 +470,7 @@ function formatDate(date: Date | string): string {
 
 ---
 
-## 12. Workflow Optimization: Prevent Overcomplex Code
+## 13. Workflow Optimization: Prevent Overcomplex Code
 
 > **Problem**: Claude Code can sometimes over-engineer solutions or create unnecessarily complex code when given vague instructions.
 
@@ -502,38 +540,6 @@ npm run test:coverage -- --reporter=text-summary
 
 ---
 
-## 13. Emergency Procedures
-
-> **What are emergency procedures?**: Pre-defined workflows for when your application breaks in production. These commands give Claude Code the context and steps to help you respond quickly and systematically to incidents.
-
-### Emergency Response Commands
-
-For production incidents, use these Claude commands for immediate assistance:
-
-**`/incident`** - Activates incident response mode with:
-- Immediate situation assessment
-- Systematic mitigation guidance
-- Available emergency commands
-- Root cause investigation
-- Fix implementation support
-
-**`/post-incident`** - Creates comprehensive post-incident reviews with:
-- Timeline reconstruction
-- Impact analysis and quantification
-- Root cause analysis (5 Whys technique)
-- Action items with owners
-- Lessons learned documentation
-
-### Quick Response
-
-```bash
-claude /incident
-"API returning 500 errors, started 10 minutes ago, 85% error rate"
-```
-
-
----
-
 ## 14. Complete Configuration Reference
 
 ### Complete Configuration Files
@@ -545,7 +551,7 @@ claude /incident
 - **Complete Scripts**: Development, testing, linting, and deployment commands
 - **Quality Gates**: Comprehensive quality checks with `npm run quality`
 - **Git Integration**: Husky and lint-staged for automated quality enforcement
-- **Performance Tools**: Bundle analysis and emergency deployment scripts
+- **Performance Tools**: Bundle analysis scripts
 
 ### Directory Structure
 
@@ -555,9 +561,7 @@ project-root/
 │   ├── debug.md
 │   ├── feature.md
 │   ├── fix-issue.md
-│   ├── incident.md
 │   ├── performance.md
-│   ├── post-incident.md
 │   └── scan-issues.md
 ├── configs/                   # Configuration files
 │   ├── claude.md

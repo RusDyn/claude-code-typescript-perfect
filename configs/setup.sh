@@ -17,7 +17,7 @@ npm install --save-dev typescript@^5.3.0 @types/node@^20.0.0
 # 3. Create ultra-strict tsconfig.json
 if [ ! -f "tsconfig.json" ]; then
   echo "⚙️  Creating TypeScript configuration..."
-  cp commands/tsconfig.json ./tsconfig.json
+  cp configs/tsconfig.json ./tsconfig.json
 fi
 
 # 4. Create project structure
@@ -85,8 +85,8 @@ npm install --save-dev \
   @commitlint/cli @commitlint/config-conventional
 
 # 11. Copy ESLint config
-if [ ! -f "eslint.config.js" ]; then
-  cp commands/eslint.config.js ./eslint.config.js
+if [ ! -f "eslint.config.mjs" ]; then
+  cp configs/eslint.config.js ./eslint.config.mjs
 fi
 
 # 12. Setup git hooks
