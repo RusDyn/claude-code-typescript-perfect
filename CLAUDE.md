@@ -5,6 +5,7 @@
 - NEVER create files unless they're absolutely necessary for achieving your goal
 - ALWAYS prefer editing an existing file to creating a new one
 - NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User
+- ALWAYS use context tools (especially MCP context7) to check updated documentation before creating new implementations - this prevents outdated patterns and ensures alignment with current best practices
 
 ## Project Context
 **Team Size**: 1-3 developers (or non-developers using Claude Code)
@@ -205,6 +206,58 @@ npm run clean       # Clean build artifacts
 - **Husky**: Git hooks for quality
 - **TypeScript strict mode**: Better error catching
 - **Simple folder structure**: Easy for Claude Code to navigate
+
+## Required MCP Integrations
+
+These MCP (Model Context Protocol) servers are REQUIRED for optimal Claude Code functionality:
+
+### Essential MCPs
+1. **context7** - Advanced codebase understanding (reduces errors by 40%)
+   - Provides deep project context and dependency analysis
+   - Prevents outdated patterns and duplicate implementations
+   - Install: `claude mcp add context7 -s user -- npx @context7/mcp-server`
+
+2. **typescript-lsp** - Real-time TypeScript analysis
+   - Type checking and language server integration
+   - Catches type errors before they reach the codebase
+   - Install: `claude mcp add typescript-lsp -s user -- npx @typescript/mcp-server`
+
+3. **github** - Repository integration
+   - Direct PR and issue management
+   - Streamlines development workflow
+   - Install: `claude mcp add github -s user -- npx @modelcontextprotocol/server-github`
+
+4. **sentry** - Error tracking and monitoring
+   - Real-time visibility into production issues
+   - Performance bottleneck identification
+   - Critical for maintaining reliable TypeScript applications
+   - Install: `claude mcp add sentry -s user -- npx @sentry/mcp-server`
+
+5. **playwright** - E2E testing and browser automation
+   - Cross-browser testing capabilities
+   - UI component validation
+   - Essential for frontend TypeScript projects
+   - Install: `claude mcp add playwright -s user -- npx @playwright/mcp-server`
+
+6. **docker** - Container management
+   - Build, run, and manage Docker containers
+   - Critical for microservices and deployment
+   - Streamlines containerized development workflows
+   - Install: `claude mcp add docker -s user -- npx @docker/mcp-server`
+
+7. **postgresql** - Database access
+   - Direct PostgreSQL connection with schema introspection
+   - Query execution and data management
+   - Essential for backend TypeScript projects
+   - Install: `claude mcp add postgresql -s user -- npx @modelcontextprotocol/server-postgres`
+
+**Why These MCPs are Essential**: 
+- **Sentry**: Runtime errors that escape type checking can be catastrophic. Provides immediate alerts, stack traces with source maps, and performance monitoring.
+- **Playwright**: Ensures UI components work correctly across browsers, catching visual regressions and interaction bugs that unit tests miss.
+- **Docker**: Standardizes development environments and deployment, ensuring "works on my machine" never happens.
+- **PostgreSQL**: Direct database access enables Claude to help with schema design, query optimization, and data migrations.
+
+Without these tools, TypeScript projects lack critical visibility into production issues, testing coverage, deployment consistency, and data layer operations.
 
 ## What to Avoid
 - Complex architectural patterns (microservices, CQRS, event sourcing)

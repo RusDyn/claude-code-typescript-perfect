@@ -161,32 +161,83 @@ npm run lint        # Lint and fix code
 npm run type-check  # TypeScript validation
 ```
 
-## Advanced Setup
+## Required Setup
 
-### MCP Servers (Recommended)
+### MCP Servers (Required)
 
-**What are MCPs?** Model Context Protocol servers extend Claude Code with external tool integrations, giving it access to databases, APIs, file systems, and specialized development tools. They dramatically enhance Claude's capabilities beyond its built-in tools.
+**What are MCPs?** Model Context Protocol servers extend Claude Code with external tool integrations, giving it access to databases, APIs, file systems, and specialized development tools. They are REQUIRED for professional TypeScript development as they dramatically enhance Claude's capabilities beyond its built-in tools.
 
-Enhance Claude Code with these proven MCP integrations:
+> **Important**: The template includes a `.mcp.json` configuration file with these required MCPs preconfigured. You still need to install them using the commands above.
+
+These MCP integrations are REQUIRED for optimal Claude Code functionality with TypeScript projects:
 
 ```bash
-# Essential: Better context understanding (reduces errors by 40%)
+# 1. Context7: Better context understanding (reduces errors by 40%)
 claude mcp add context7 -s user -- npx @context7/mcp-server
 ```
 [Context7 Repository](https://github.com/context7/mcp-server) - Advanced codebase understanding and context management
 
 ```bash
-# TypeScript: Real-time type checking and analysis
+# 2. TypeScript LSP: Real-time type checking and analysis
 claude mcp add typescript-lsp -s user -- npx @typescript/mcp-server
 ```
 [TypeScript LSP Repository](https://github.com/typescript-language-server/typescript-language-server) - Language server protocol integration for TypeScript
 
 ```bash
-# GitHub: Direct repository integration
+# 3. GitHub: Direct repository integration
 claude mcp add github -s user -- npx @modelcontextprotocol/server-github
 export GITHUB_PERSONAL_ACCESS_TOKEN="your_token_here"
 ```
 [GitHub MCP Server Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/github) - Official GitHub integration for repository management
+
+```bash
+# 4. Sentry: Error tracking and performance monitoring
+claude mcp add sentry -s user -- npx @sentry/mcp-server
+export SENTRY_DSN="your_sentry_dsn_here"
+export SENTRY_AUTH_TOKEN="your_auth_token_here"
+```
+[Sentry MCP Server Repository](https://github.com/getsentry/sentry-mcp-server) - Production error tracking and monitoring
+
+```bash
+# 5. Playwright: E2E testing and browser automation
+claude mcp add playwright -s user -- npx @playwright/mcp-server
+```
+[Playwright MCP Server Repository](https://github.com/microsoft/playwright-mcp-server) - Official Playwright integration for testing
+
+```bash
+# 6. Docker: Container management and deployment
+claude mcp add docker -s user -- npx @docker/mcp-server
+```
+[Docker MCP Server Repository](https://github.com/docker/mcp-server) - Docker container orchestration
+
+```bash
+# 7. PostgreSQL: Direct database access
+claude mcp add postgresql -s user -- npx @modelcontextprotocol/server-postgres
+export POSTGRES_CONNECTION_STRING="postgresql://user:password@localhost:5432/dbname"
+```
+[PostgreSQL MCP Server Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/postgres) - PostgreSQL database integration
+
+**Why These MCPs are Essential for TypeScript Projects:**
+
+**Sentry** - Production Monitoring:
+- Runtime error detection that escapes TypeScript's compile-time checks
+- Performance monitoring for async/await bottlenecks
+- Real user impact metrics with source map support
+
+**Playwright** - E2E Testing:
+- Cross-browser testing for TypeScript web applications
+- Visual regression testing and UI interaction validation
+- Catches bugs that unit tests miss
+
+**Docker** - Containerization:
+- Consistent development and production environments
+- Simplifies deployment of TypeScript microservices
+- "Works on my machine" becomes "works everywhere"
+
+**PostgreSQL** - Database Operations:
+- Direct database access for schema design and migrations
+- Query optimization and performance tuning
+- Data validation and integrity checks
 
 **Additional Useful MCPs:**
 - [**Database MCP**](https://github.com/modelcontextprotocol/servers/tree/main/src/sqlite) - SQLite database operations
