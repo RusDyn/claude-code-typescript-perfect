@@ -1,13 +1,13 @@
 {
-  "servers": {
+  "mcpServers": {
     "context7": {
       "type": "http",
       "url": "https://mcp.context7.com/mcp",
       "description": "Advanced codebase understanding and context management. Reduces errors by 40% by providing Claude Code with better context about your project structure, dependencies, and relationships."
     },
     "typescript-lsp": {
-      "type": "docker",
-      "args": ["run", "-i", "--rm", "docker.io/jonrad/lsp-mcp:0.3.1"],
+      "command": "npx",
+      "args": ["-y", "--silent", "git+https://github.com/jonrad/lsp-mcp", "--lsp", "npx -y --silent -p 'typescript@5.7.3' -p 'typescript-language-server@4.3.3' typescript-language-server --stdio"],
       "description": "Real-time TypeScript type checking and analysis. Provides language server protocol integration for enhanced code intelligence and type safety."
     },
     "github": {
