@@ -10,12 +10,11 @@ export default {
     // Format with prettier
     'prettier --write',
     
-    // Run related tests
+    // Run related tests (lint-staged already filters for existing files)
     (filenames) => {
       const tests = filenames
-        .map(f => f.replace(/\.ts$/, '.test.ts'))
-        .filter(f => require('fs').existsSync(f));
-      return tests.length ? `vitest run ${tests.join(' ')}` : true;
+        .map(f => f.replace(/\.ts$/, '.test.ts'));
+      return tests.length ? `vitest run ${tests.join(' ')} --reporter=verbose --run` : true;
     }
   ],
   

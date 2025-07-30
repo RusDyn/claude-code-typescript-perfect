@@ -5,18 +5,10 @@
       "url": "https://mcp.context7.com/mcp",
       "description": "Advanced codebase understanding and context management. Reduces errors by 40% by providing Claude Code with better context about your project structure, dependencies, and relationships."
     },
-    "typescript-lsp": {
+    "sequential-thinking": {
+      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "--silent", "git+https://github.com/jonrad/lsp-mcp", "--lsp", "npx -y --silent -p 'typescript@5.7.3' -p 'typescript-language-server@4.3.3' typescript-language-server --stdio"],
-      "description": "Real-time TypeScript type checking and analysis. Provides language server protocol integration for enhanced code intelligence and type safety."
-    },
-    "github": {
-      "command": "npx",
-      "args": ["@modelcontextprotocol/server-github"],
-      "description": "Direct GitHub repository integration for PR management, issue tracking, and code review workflows.",
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "your_token_here"
-      }
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
     },
     "sentry": {
       "type": "http",
@@ -32,22 +24,6 @@
       "command": "npx",
       "args": ["@playwright/mcp@latest"],
       "description": "Official Playwright integration for browser automation and E2E testing. Essential for TypeScript projects with UI components, providing reliable cross-browser testing capabilities."
-    },
-    "docker-mcp": {
-      "command": "uvx",
-      "args": [
-        "docker-mcp"
-      ],
-      "description": "Docker container management - run, build, and manage containers directly. Critical for TypeScript microservices and deployment workflows."
-    
-    },
-    "postgresql": {
-      "command": "npx",
-      "args": ["@modelcontextprotocol/server-postgres"],
-      "description": "Direct PostgreSQL database access with schema introspection and query execution. Essential for TypeScript projects using PostgreSQL.",
-      "env": {
-        "POSTGRES_CONNECTION_STRING": "postgresql://user:password@localhost:5432/dbname"
-      }
     }
   }
 }

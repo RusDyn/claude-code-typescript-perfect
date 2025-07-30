@@ -6,6 +6,7 @@
 - ALWAYS prefer editing an existing file to creating a new one
 - NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User
 - ALWAYS use context tools (especially MCP context7) to check updated documentation before creating new implementations - this prevents outdated patterns and ensures alignment with current best practices
+- DO NOT skip linting issues in any case. FIX them first. Both errors and warnings
 
 ## Project Context
 **Team Size**: 1-3 developers (or non-developers using Claude Code)
