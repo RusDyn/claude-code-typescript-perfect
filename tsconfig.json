@@ -56,6 +56,22 @@
     "incremental": true,
     "tsBuildInfoFile": ".tsbuildinfo"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "coverage", "**/*.test.ts"]
+  "include": [
+    "src/**/*",
+    "types/**/*",
+    "utils/**/*",
+    "test-patterns/**/*",
+    "*.config.ts",
+    "vitest.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "**/*.test.ts",
+    "*.config.js",
+    "eslint.config.js",
+    "commitlint.config.js",
+    "lint-staged.config.js"
+  ]
 }
