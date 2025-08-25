@@ -1,11 +1,15 @@
 // src/services/user.service.test.ts
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { UserService } from './user.service';
-import { Ok, Err } from '@/types/result';
+import { Ok, Err as _Err } from '@/types/result';
 
 describe('UserService', () => {
   let service: UserService;
-  let mockRepository: any;
+  let mockRepository: {
+    findById: ReturnType<typeof vi.fn>;
+    create: ReturnType<typeof vi.fn>;
+    update: ReturnType<typeof vi.fn>;
+  };
 
   beforeEach(() => {
     mockRepository = {
@@ -13,7 +17,7 @@ describe('UserService', () => {
       create: vi.fn(),
       update: vi.fn(),
     };
-    service = new UserService(mockRepository);
+    service = new UserService(mockRepository as unknown as UserService['repository']);
   });
 
   describe('createUser', () => {
@@ -31,7 +35,7 @@ describe('UserService', () => {
 
       // Assert
       expect(result).toEqual(Ok(expectedUser));
-      expect(mockRepository.create).toHaveBeenCalledWith(userData);
+      expect(mockRepository.create as unknown).toHaveBeenCalledWith(userData);
     });
 
     it('should return validation error for invalid email', async () => {
@@ -45,11 +49,11 @@ describe('UserService', () => {
       const result = await service.createUser(userData);
 
       // Assert
-      expect(result.success).toBe(false);
-      if (!result.success) {
-        expect(result.error.type).toBe('VALIDATION_ERROR');
+      expect((result as { success: boolean }).success).toBe(false);
+      if (!(result as { success: boolean }).success) {
+        expect((result as { error: { type: string } }).error.type).toBe('VALIDATION_ERROR');
       }
-      expect(mockRepository.create).not.toHaveBeenCalled();
+      expect(mockRepository.create as unknown).not.toHaveBeenCalled();
     });
   });
 });
