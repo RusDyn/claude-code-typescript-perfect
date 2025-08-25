@@ -9,13 +9,15 @@ export default [
   {
     ignores: [
       'node_modules/',
-      '.next/',
-      'out/',
       'dist/',
-      'coverage/',
-      'generated/',
-      'next-env.d.ts',
-      'src/components/ui/',
+      'coverage/**/*',
+      'html/**/*',
+      'reports/**/*',
+      'test-patterns/**/*',
+      '.tsbuildinfo',
+      '*.config.js',
+      'lint-staged.config.*',
+      'commitlint.config.*',
     ],
   },
   
@@ -79,6 +81,16 @@ export default [
         '@typescript-eslint/no-non-null-assertion': 'error',
         '@typescript-eslint/restrict-template-expressions': 'error',
         
+        // Additional strict TypeScript rules
+        '@typescript-eslint/no-unused-vars': [
+          'error',
+          {
+            argsIgnorePattern: '^_',
+            varsIgnorePattern: '^_',
+            caughtErrorsIgnorePattern: '^_',
+          },
+        ],
+        
         // Naming conventions
         '@typescript-eslint/naming-convention': [
           'error',
@@ -98,23 +110,36 @@ export default [
         ],
         
         // Unicorn strict rules
-        'unicorn/no-null': 'error',
-        'unicorn/prefer-top-level-await': 'error',
+        'unicorn/no-null': 'off',
+        'unicorn/better-regex': 'warn',
+        'unicorn/catch-error-name': 'error',
+        'unicorn/consistent-function-scoping': 'error',
         'unicorn/explicit-length-check': 'error',
-        'unicorn/prefer-node-protocol': 'error',
-        'unicorn/prefer-module': 'error',
+        'unicorn/filename-case': ['error', { case: 'kebabCase' }],
+        'unicorn/new-for-builtins': 'error',
+        'unicorn/no-array-for-each': 'warn',
         'unicorn/no-array-push-push': 'error',
+        'unicorn/no-console-spaces': 'error',
+        'unicorn/no-for-loop': 'error',
         'unicorn/no-lonely-if': 'error',
         'unicorn/no-useless-spread': 'error',
-        'unicorn/prefer-ternary': 'error',
+        'unicorn/prefer-array-find': 'error',
+        'unicorn/prefer-array-flat': 'error',
+        'unicorn/prefer-array-flat-map': 'error',
+        'unicorn/prefer-includes': 'error',
         'unicorn/prefer-logical-operator-over-ternary': 'error',
         'unicorn/prefer-math-trunc': 'error',
+        'unicorn/prefer-module': 'off',
+        'unicorn/prefer-node-protocol': 'error',
         'unicorn/prefer-number-properties': 'error',
-        'unicorn/prefer-string-starts-ends-with': 'error',
-        'unicorn/prefer-string-slice': 'error',
+        'unicorn/prefer-optional-catch-binding': 'error',
         'unicorn/prefer-regexp-test': 'error',
+        'unicorn/prefer-set-has': 'error',
+        'unicorn/prefer-string-slice': 'error',
+        'unicorn/prefer-string-starts-ends-with': 'error',
+        'unicorn/prefer-ternary': 'warn',
+        'unicorn/prefer-top-level-await': 'warn',
         'unicorn/throw-new-error': 'error',
-        'unicorn/no-console-spaces': 'error',
         'unicorn/escape-case': 'error',
         'unicorn/number-literal-case': 'error',
         
@@ -135,7 +160,7 @@ export default [
         'sonarjs/prefer-while': 'error',
         
         // Security rules
-        'security/detect-object-injection': 'warn',
+        'security/detect-object-injection': 'off',
         'security/detect-non-literal-regexp': 'warn',
         'security/detect-possible-timing-attacks': 'warn',
         'security/detect-eval-with-expression': 'error',
@@ -145,19 +170,78 @@ export default [
         'security/detect-disable-mustache-escape': 'error',
         'security/detect-new-buffer': 'error',
         'security/detect-unsafe-regex': 'error',
+        
+        // File length limit
+        'max-lines': ['error', 250],
       },
     }
   ),
   
-  // TypeScript config files override
+  // Config files overrides (JS and TypeScript)
   {
-    files: ['*.config.ts'],
+    files: ['*.js', '*.config.js', '*.config.mjs', '*.config.cjs', '*.config.ts'],
     rules: {
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
-      'unicorn/no-null': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/await-thenable': 'off',
+      '@typescript-eslint/no-unnecessary-condition': 'off',
+      '@typescript-eslint/prefer-readonly': 'off',
+      '@typescript-eslint/switch-exhaustiveness-check': 'off',
+      '@typescript-eslint/prefer-optional-chain': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/restrict-template-expressions': 'off',
+      '@typescript-eslint/naming-convention': 'off',
       'unicorn/prefer-module': 'off',
+      'unicorn/filename-case': 'off',
       'sonarjs/no-duplicate-string': 'off',
+      'max-lines': 'off',
+    },
+  },
+  
+  // React components and pages - disable explicit return types
+  {
+    files: ['app/**/page.tsx', 'app/**/layout.tsx', 'components/**/*.tsx'],
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 'off',
+    },
+  },
+  
+  // Components - 400 line limit
+  {
+    files: ['components/**/*.ts', 'components/**/*.tsx'],
+    rules: {
+      'max-lines': ['error', 400],
+    },
+  },
+  
+  // App route files - 250 line limit (default, but explicit for clarity)
+  {
+    files: ['app/**/*.ts', 'app/**/*.tsx'],
+    rules: {
+      'max-lines': ['error', 250],
+    },
+  },
+  
+  // App page and layout files - 300 line limit
+  {
+    files: ['app/**/page.tsx', 'app/**/layout.tsx'],
+    rules: {
+      'max-lines': ['error', 300],
+    },
+  },
+  
+  // UI Components - relaxed rules
+  {
+    files: ['components/ui/**/*'],
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      'sonarjs/cognitive-complexity': ['error', 25],
+      'sonarjs/no-duplicate-string': ['warn', { threshold: 10 }],
     },
   },
   
@@ -169,6 +253,7 @@ export default [
       '**/*.test.tsx',
       '**/*.spec.tsx',
       '**/test-setup.ts',
+      'test-patterns/**/*.ts',
     ],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
@@ -185,6 +270,7 @@ export default [
       '@typescript-eslint/prefer-nullish-coalescing': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
+      '@typescript-eslint/no-unsafe-construction': 'off',
       'sonarjs/no-duplicate-string': 'off',
       'sonarjs/cognitive-complexity': ['error', 25],
       'unicorn/no-null': 'off',
@@ -200,20 +286,10 @@ export default [
     },
   },
   
-  // Specific API/lib directories with warning-level rules
+  // API and library files - warnings instead of errors
   {
-    files: [
-      'src/app/api/**/*.ts',
-      'src/contexts/**/*.tsx',
-      'src/hooks/**/*.ts',
-      'src/lib/**/*.ts',
-    ],
-    ignores: [
-      '**/*.test.ts',
-      '**/*.spec.ts',
-      '**/*.test.tsx',
-      '**/*.spec.tsx',
-    ],
+    files: ['app/api/**/*.ts', 'hooks/**/*.ts', 'lib/**/*.ts'],
+    ignores: ['**/*.test.ts', '**/*.spec.ts', '**/*.test.tsx', '**/*.spec.tsx'],
     rules: {
       '@typescript-eslint/explicit-function-return-type': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
@@ -221,15 +297,38 @@ export default [
       '@typescript-eslint/no-unsafe-member-access': 'warn',
       '@typescript-eslint/no-unsafe-call': 'warn',
       '@typescript-eslint/no-unsafe-return': 'warn',
-      '@typescript-eslint/strict-boolean-expressions': 'warn',
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/await-thenable': 'warn',
       '@typescript-eslint/no-unnecessary-condition': 'warn',
       '@typescript-eslint/prefer-readonly': 'warn',
-      '@typescript-eslint/prefer-nullish-coalescing': 'warn',
-      'unicorn/no-null': 'warn',
       'sonarjs/no-duplicate-string': 'warn',
       'security/detect-unsafe-regex': 'warn',
+    },
+  },
+  
+  // E2E tests configuration
+  {
+    files: ['e2e/**/*.ts', 'playwright.config.ts'],
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/await-thenable': 'off',
+      '@typescript-eslint/no-unnecessary-condition': 'off',
+      '@typescript-eslint/prefer-readonly': 'off',
+      '@typescript-eslint/switch-exhaustiveness-check': 'off',
+      '@typescript-eslint/prefer-optional-chain': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/restrict-template-expressions': 'off',
+      '@typescript-eslint/naming-convention': 'off',
+      'unicorn/prefer-module': 'off',
+      'unicorn/filename-case': 'off',
+      'sonarjs/no-duplicate-string': 'off',
+      'max-lines': 'off',
     },
   },
 ];

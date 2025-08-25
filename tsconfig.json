@@ -38,15 +38,14 @@
     // Path aliases for Claude Code clarity
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@/types": ["src/types/index"],
-      "@/utils": ["src/utils/index"],
-      "@/services": ["src/services/index"]
+      "@/*": ["./src/*"],
+      "@/types": ["./types/*"],
+      "@/utils": ["./utils/*"],
+      "@/test": ["./test-patterns/*"]
     },
     
     // Output options
     "outDir": "./dist",
-    "rootDir": "./src",
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
@@ -60,7 +59,6 @@
     "src/**/*",
     "types/**/*",
     "utils/**/*",
-    "test-patterns/**/*",
     "*.config.ts",
     "vitest.config.ts"
   ],
@@ -68,10 +66,10 @@
     "node_modules",
     "dist",
     "coverage",
-    "**/*.test.ts",
     "*.config.js",
     "eslint.config.js",
     "commitlint.config.js",
-    "lint-staged.config.js"
+    "lint-staged.config.js",
+    "test-patterns/**/*"
   ]
 }
