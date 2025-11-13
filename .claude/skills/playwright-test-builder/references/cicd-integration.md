@@ -54,7 +54,7 @@ CMD ["npx", "playwright", "test"]
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
+version: "3.8"
 services:
   tests:
     build: .

@@ -9,21 +9,21 @@ Comprehensive guide to writing maintainable, reliable Playwright tests.
 Structure every test clearly:
 
 ```typescript
-test('should login successfully', async ({ page }) => {
+test("should login successfully", async ({ page }) => {
   // Arrange - Setup
-  const email = 'test@example.com'
-  const password = 'SecurePass123!'
-  await page.goto('/login')
+  const email = "test@example.com";
+  const password = "SecurePass123!";
+  await page.goto("/login");
 
   // Act - Perform action
-  await page.fill('[name="email"]', email)
-  await page.fill('[name="password"]', password)
-  await page.click('button[type="submit"]')
+  await page.fill('[name="email"]', email);
+  await page.fill('[name="password"]', password);
+  await page.click('button[type="submit"]');
 
   // Assert - Verify result
-  await expect(page).toHaveURL('/dashboard')
-  await expect(page.locator('h1')).toContainText('Welcome')
-})
+  await expect(page).toHaveURL("/dashboard");
+  await expect(page.locator("h1")).toContainText("Welcome");
+});
 ```
 
 ### 2. Test Independence
@@ -32,17 +32,17 @@ Each test should run independently:
 
 ```typescript
 // ✅ Good - Independent test
-test('should add item to cart', async ({ page }) => {
-  await page.goto('/products')
-  await page.click('[data-product-id="1"] button')
-  await expect(page.locator('.cart-count')).toHaveText('1')
-})
+test("should add item to cart", async ({ page }) => {
+  await page.goto("/products");
+  await page.click('[data-product-id="1"] button');
+  await expect(page.locator(".cart-count")).toHaveText("1");
+});
 
 // ❌ Bad - Depends on previous test
-test('should checkout cart', async ({ page }) => {
+test("should checkout cart", async ({ page }) => {
   // Assumes cart already has items from previous test
-  await page.goto('/checkout')
-})
+  await page.goto("/checkout");
+});
 ```
 
 ### 3. Descriptive Test Names
@@ -76,36 +76,36 @@ Priority order:
 
 ```typescript
 // 1. Best - data-testid
-await page.click('[data-testid="submit-button"]')
+await page.click('[data-testid="submit-button"]');
 
 // 2. Good - ARIA role
-await page.click('role=button[name="Submit"]')
+await page.click('role=button[name="Submit"]');
 
 // 3. Good - User-visible text
-await page.click('text=Submit')
+await page.click("text=Submit");
 
 // 4. Acceptable - Semantic CSS
-await page.click('button[type="submit"]')
+await page.click('button[type="submit"]');
 
 // 5. Avoid - Fragile selectors
-await page.click('.btn.btn-primary.submit-btn') // May break with styling changes
+await page.click(".btn.btn-primary.submit-btn"); // May break with styling changes
 ```
 
 ### Use Locators Properly
 
 ```typescript
 // Chain locators for specificity
-const form = page.locator('form[data-testid="login-form"]')
-await form.locator('input[name="email"]').fill('test@example.com')
-await form.locator('button[type="submit"]').click()
+const form = page.locator('form[data-testid="login-form"]');
+await form.locator('input[name="email"]').fill("test@example.com");
+await form.locator('button[type="submit"]').click();
 
 // Use getByRole for accessibility
-await page.getByRole('button', { name: 'Submit' }).click()
-await page.getByRole('textbox', { name: 'Email' }).fill('test@example.com')
+await page.getByRole("button", { name: "Submit" }).click();
+await page.getByRole("textbox", { name: "Email" }).fill("test@example.com");
 
 // Use getByLabel for form inputs
-await page.getByLabel('Email address').fill('test@example.com')
-await page.getByLabel('Password').fill('password123')
+await page.getByLabel("Email address").fill("test@example.com");
+await page.getByLabel("Password").fill("password123");
 ```
 
 ## Wait Strategies
@@ -120,7 +120,7 @@ Playwright auto-waits for elements to be actionable:
 // - Element to be stable
 // - Element to receive events
 // - Element to be enabled
-await page.click('button') // Waits automatically
+await page.click("button"); // Waits automatically
 ```
 
 ### Explicit Waits
@@ -129,23 +129,23 @@ When you need specific conditions:
 
 ```typescript
 // Wait for element
-await page.waitForSelector('[data-testid="results"]')
+await page.waitForSelector('[data-testid="results"]');
 
 // Wait for load state
-await page.waitForLoadState('networkidle')
+await page.waitForLoadState("networkidle");
 
 // Wait for response
 const responsePromise = page.waitForResponse(
-  resp => resp.url().includes('/api/users') && resp.status() === 200
-)
-await page.click('button')
-await responsePromise
+  (resp) => resp.url().includes("/api/users") && resp.status() === 200,
+);
+await page.click("button");
+await responsePromise;
 
 // Wait for function
-await page.waitForFunction(() => document.querySelectorAll('.item').length > 5)
+await page.waitForFunction(() => document.querySelectorAll(".item").length > 5);
 
 // Wait for timeout (avoid - use as last resort)
-await page.waitForTimeout(1000) // ❌ Avoid if possible
+await page.waitForTimeout(1000); // ❌ Avoid if possible
 ```
 
 ## Assertions
@@ -154,27 +154,27 @@ await page.waitForTimeout(1000) // ❌ Avoid if possible
 
 ```typescript
 // Element visibility
-await expect(page.locator('.success')).toBeVisible()
-await expect(page.locator('.loading')).toBeHidden()
+await expect(page.locator(".success")).toBeVisible();
+await expect(page.locator(".loading")).toBeHidden();
 
 // Text content
-await expect(page.locator('h1')).toHaveText('Welcome')
-await expect(page.locator('.error')).toContainText('Invalid')
+await expect(page.locator("h1")).toHaveText("Welcome");
+await expect(page.locator(".error")).toContainText("Invalid");
 
 // Attributes
-await expect(page.locator('input')).toHaveAttribute('type', 'email')
-await expect(page.locator('button')).toBeDisabled()
-await expect(page.locator('input')).toBeFocused()
+await expect(page.locator("input")).toHaveAttribute("type", "email");
+await expect(page.locator("button")).toBeDisabled();
+await expect(page.locator("input")).toBeFocused();
 
 // Count
-await expect(page.locator('.item')).toHaveCount(5)
+await expect(page.locator(".item")).toHaveCount(5);
 
 // URL
-await expect(page).toHaveURL('/dashboard')
-await expect(page).toHaveURL(/\/dashboard/)
+await expect(page).toHaveURL("/dashboard");
+await expect(page).toHaveURL(/\/dashboard/);
 
 // Screenshots
-await expect(page).toHaveScreenshot('homepage.png')
+await expect(page).toHaveScreenshot("homepage.png");
 ```
 
 ### Soft Assertions
@@ -182,12 +182,12 @@ await expect(page).toHaveScreenshot('homepage.png')
 Continue test even if assertion fails:
 
 ```typescript
-test('should validate multiple fields', async ({ page }) => {
-  await expect.soft(page.locator('.title')).toBeVisible()
-  await expect.soft(page.locator('.description')).toBeVisible()
-  await expect.soft(page.locator('.price')).toBeVisible()
+test("should validate multiple fields", async ({ page }) => {
+  await expect.soft(page.locator(".title")).toBeVisible();
+  await expect.soft(page.locator(".description")).toBeVisible();
+  await expect.soft(page.locator(".price")).toBeVisible();
   // Test continues even if some assertions fail
-})
+});
 ```
 
 ## Test Organization
@@ -195,68 +195,68 @@ test('should validate multiple fields', async ({ page }) => {
 ### Group Related Tests
 
 ```typescript
-test.describe('Login Flow', () => {
+test.describe("Login Flow", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/login')
-  })
+    await page.goto("/login");
+  });
 
-  test.describe('valid credentials', () => {
-    test('should login with email', async ({ page }) => {
+  test.describe("valid credentials", () => {
+    test("should login with email", async ({ page }) => {
       // ...
-    })
+    });
 
-    test('should login with username', async ({ page }) => {
+    test("should login with username", async ({ page }) => {
       // ...
-    })
-  })
+    });
+  });
 
-  test.describe('invalid credentials', () => {
-    test('should show error for wrong password', async ({ page }) => {
+  test.describe("invalid credentials", () => {
+    test("should show error for wrong password", async ({ page }) => {
       // ...
-    })
+    });
 
-    test('should show error for non-existent user', async ({ page }) => {
+    test("should show error for non-existent user", async ({ page }) => {
       // ...
-    })
-  })
-})
+    });
+  });
+});
 ```
 
 ### Use Hooks Effectively
 
 ```typescript
-test.describe('User Management', () => {
-  let userId: string
+test.describe("User Management", () => {
+  let userId: string;
 
   // Runs before all tests in this describe block
   test.beforeAll(async ({ request }) => {
     // Create test user once
-    const response = await request.post('/api/users', {
-      data: { email: 'test@example.com' },
-    })
-    userId = (await response.json()).id
-  })
+    const response = await request.post("/api/users", {
+      data: { email: "test@example.com" },
+    });
+    userId = (await response.json()).id;
+  });
 
   // Runs before each test
   test.beforeEach(async ({ page }) => {
-    await page.goto(`/users/${userId}`)
-  })
+    await page.goto(`/users/${userId}`);
+  });
 
   // Runs after each test
   test.afterEach(async ({ page }) => {
     // Cleanup UI state if needed
-  })
+  });
 
   // Runs after all tests
   test.afterAll(async ({ request }) => {
     // Delete test user
-    await request.delete(`/api/users/${userId}`)
-  })
+    await request.delete(`/api/users/${userId}`);
+  });
 
-  test('should display user profile', async ({ page }) => {
+  test("should display user profile", async ({ page }) => {
     // Test implementation
-  })
-})
+  });
+});
 ```
 
 ## Fixtures and Test Data
@@ -265,59 +265,59 @@ test.describe('User Management', () => {
 
 ```typescript
 // fixtures/auth.ts
-import { test as base } from '@playwright/test'
+import { test as base } from "@playwright/test";
 
 type AuthFixtures = {
-  authenticatedPage: Page
-}
+  authenticatedPage: Page;
+};
 
 export const test = base.extend<AuthFixtures>({
   authenticatedPage: async ({ page }, use) => {
     // Setup: Login
-    await page.goto('/login')
-    await page.fill('[name="email"]', 'test@example.com')
-    await page.fill('[name="password"]', 'password')
-    await page.click('button[type="submit"]')
-    await page.waitForURL('/dashboard')
+    await page.goto("/login");
+    await page.fill('[name="email"]', "test@example.com");
+    await page.fill('[name="password"]', "password");
+    await page.click('button[type="submit"]');
+    await page.waitForURL("/dashboard");
 
     // Use the authenticated page
-    await use(page)
+    await use(page);
 
     // Teardown: Logout
-    await page.click('[data-testid="logout"]')
+    await page.click('[data-testid="logout"]');
   },
-})
+});
 
 // Usage
-test('should access protected resource', async ({ authenticatedPage }) => {
-  await authenticatedPage.goto('/admin')
-  await expect(authenticatedPage.locator('h1')).toBeVisible()
-})
+test("should access protected resource", async ({ authenticatedPage }) => {
+  await authenticatedPage.goto("/admin");
+  await expect(authenticatedPage.locator("h1")).toBeVisible();
+});
 ```
 
 ### Storage State for Authentication
 
 ```typescript
 // Setup authentication once
-import { test as setup } from '@playwright/test'
+import { test as setup } from "@playwright/test";
 
-setup('authenticate', async ({ page }) => {
-  await page.goto('/login')
-  await page.fill('[name="email"]', 'test@example.com')
-  await page.fill('[name="password"]', 'password')
-  await page.click('button[type="submit"]')
+setup("authenticate", async ({ page }) => {
+  await page.goto("/login");
+  await page.fill('[name="email"]', "test@example.com");
+  await page.fill('[name="password"]', "password");
+  await page.click('button[type="submit"]');
 
   // Save authentication state
-  await page.context().storageState({ path: 'auth.json' })
-})
+  await page.context().storageState({ path: "auth.json" });
+});
 
 // Use in tests
-test.use({ storageState: 'auth.json' })
+test.use({ storageState: "auth.json" });
 
-test('should access dashboard', async ({ page }) => {
-  await page.goto('/dashboard')
+test("should access dashboard", async ({ page }) => {
+  await page.goto("/dashboard");
   // Already authenticated!
-})
+});
 ```
 
 ## API Testing Patterns
@@ -325,40 +325,40 @@ test('should access dashboard', async ({ page }) => {
 ### Test API Endpoints
 
 ```typescript
-test('should create user via API', async ({ request }) => {
-  const response = await request.post('/api/users', {
+test("should create user via API", async ({ request }) => {
+  const response = await request.post("/api/users", {
     data: {
-      email: 'new@example.com',
-      name: 'New User',
+      email: "new@example.com",
+      name: "New User",
     },
-  })
+  });
 
-  expect(response.ok()).toBeTruthy()
-  expect(response.status()).toBe(201)
+  expect(response.ok()).toBeTruthy();
+  expect(response.status()).toBe(201);
 
-  const user = await response.json()
-  expect(user).toHaveProperty('id')
-  expect(user.email).toBe('new@example.com')
-})
+  const user = await response.json();
+  expect(user).toHaveProperty("id");
+  expect(user.email).toBe("new@example.com");
+});
 ```
 
 ### Combine UI and API Testing
 
 ```typescript
-test('should reflect API changes in UI', async ({ page, request }) => {
+test("should reflect API changes in UI", async ({ page, request }) => {
   // Setup via API
-  const response = await request.post('/api/products', {
-    data: { name: 'New Product', price: 29.99 },
-  })
-  const product = await response.json()
+  const response = await request.post("/api/products", {
+    data: { name: "New Product", price: 29.99 },
+  });
+  const product = await response.json();
 
   // Verify in UI
-  await page.goto('/products')
-  await expect(page.locator(`[data-product-id="${product.id}"]`)).toBeVisible()
+  await page.goto("/products");
+  await expect(page.locator(`[data-product-id="${product.id}"]`)).toBeVisible();
   await expect(
-    page.locator(`[data-product-id="${product.id}"] .name`)
-  ).toContainText('New Product')
-})
+    page.locator(`[data-product-id="${product.id}"] .name`),
+  ).toContainText("New Product");
+});
 ```
 
 ## Mobile Testing
@@ -366,48 +366,48 @@ test('should reflect API changes in UI', async ({ page, request }) => {
 ### Test Responsive Designs
 
 ```typescript
-test.describe('Mobile View', () => {
+test.describe("Mobile View", () => {
   test.use({
     viewport: { width: 375, height: 667 }, // iPhone SE
-  })
+  });
 
-  test('should show mobile menu', async ({ page }) => {
-    await page.goto('/')
-    await expect(page.locator('.hamburger-menu')).toBeVisible()
-    await expect(page.locator('.desktop-nav')).toBeHidden()
-  })
-})
+  test("should show mobile menu", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator(".hamburger-menu")).toBeVisible();
+    await expect(page.locator(".desktop-nav")).toBeHidden();
+  });
+});
 
 // Test specific devices
-test.describe('iPad', () => {
-  test.use({ ...devices['iPad Pro'] })
+test.describe("iPad", () => {
+  test.use({ ...devices["iPad Pro"] });
 
-  test('should adapt layout for tablet', async ({ page }) => {
+  test("should adapt layout for tablet", async ({ page }) => {
     // Test implementation
-  })
-})
+  });
+});
 ```
 
 ### Touch Gestures
 
 ```typescript
-test('should support swipe gesture', async ({ page }) => {
-  await page.goto('/gallery')
+test("should support swipe gesture", async ({ page }) => {
+  await page.goto("/gallery");
 
-  const carousel = page.locator('.carousel')
-  await carousel.hover()
+  const carousel = page.locator(".carousel");
+  await carousel.hover();
 
   // Swipe left
-  await page.mouse.move(300, 300)
-  await page.mouse.down()
-  await page.mouse.move(100, 300)
-  await page.mouse.up()
+  await page.mouse.move(300, 300);
+  await page.mouse.down();
+  await page.mouse.move(100, 300);
+  await page.mouse.up();
 
-  await expect(page.locator('.carousel .active')).toHaveAttribute(
-    'data-index',
-    '2'
-  )
-})
+  await expect(page.locator(".carousel .active")).toHaveAttribute(
+    "data-index",
+    "2",
+  );
+});
 ```
 
 ## Performance Testing
@@ -415,34 +415,34 @@ test('should support swipe gesture', async ({ page }) => {
 ### Measure Performance
 
 ```typescript
-test('should load page quickly', async ({ page }) => {
-  const startTime = Date.now()
+test("should load page quickly", async ({ page }) => {
+  const startTime = Date.now();
 
-  await page.goto('/')
-  await page.waitForLoadState('networkidle')
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
 
-  const loadTime = Date.now() - startTime
-  expect(loadTime).toBeLessThan(3000) // 3 seconds
-})
+  const loadTime = Date.now() - startTime;
+  expect(loadTime).toBeLessThan(3000); // 3 seconds
+});
 
 // Use Performance API
-test('should have good performance metrics', async ({ page }) => {
-  await page.goto('/')
+test("should have good performance metrics", async ({ page }) => {
+  await page.goto("/");
 
   const metrics = await page.evaluate(() => {
     const navigation = performance.getEntriesByType(
-      'navigation'
-    )[0] as PerformanceNavigationTiming
+      "navigation",
+    )[0] as PerformanceNavigationTiming;
     return {
       domContentLoaded:
         navigation.domContentLoadedEventEnd -
         navigation.domContentLoadedEventStart,
       loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
-    }
-  })
+    };
+  });
 
-  expect(metrics.domContentLoaded).toBeLessThan(1000)
-})
+  expect(metrics.domContentLoaded).toBeLessThan(1000);
+});
 ```
 
 ## Error Handling
@@ -450,24 +450,24 @@ test('should have good performance metrics', async ({ page }) => {
 ### Test Error States
 
 ```typescript
-test('should handle network failure', async ({ page, context }) => {
+test("should handle network failure", async ({ page, context }) => {
   // Simulate offline
-  await context.setOffline(true)
+  await context.setOffline(true);
 
-  await page.goto('/products')
-  await expect(page.locator('.error-message')).toBeVisible()
-  await expect(page.locator('.error-message')).toContainText('Network error')
-})
+  await page.goto("/products");
+  await expect(page.locator(".error-message")).toBeVisible();
+  await expect(page.locator(".error-message")).toContainText("Network error");
+});
 
-test('should show validation errors', async ({ page }) => {
-  await page.goto('/signup')
+test("should show validation errors", async ({ page }) => {
+  await page.goto("/signup");
 
   // Submit empty form
-  await page.click('button[type="submit"]')
+  await page.click('button[type="submit"]');
 
-  await expect(page.locator('[data-error="email"]')).toBeVisible()
-  await expect(page.locator('[data-error="password"]')).toBeVisible()
-})
+  await expect(page.locator('[data-error="email"]')).toBeVisible();
+  await expect(page.locator('[data-error="password"]')).toBeVisible();
+});
 ```
 
 ## Best Practices Summary
@@ -504,11 +504,11 @@ test('should show validation errors', async ({ page }) => {
 
 ```typescript
 async function login(page: Page, email: string, password: string) {
-  await page.goto('/login')
-  await page.fill('[name="email"]', email)
-  await page.fill('[name="password"]', password)
-  await page.click('button[type="submit"]')
-  await expect(page).toHaveURL('/dashboard')
+  await page.goto("/login");
+  await page.fill('[name="email"]', email);
+  await page.fill('[name="password"]', password);
+  await page.click('button[type="submit"]');
+  await expect(page).toHaveURL("/dashboard");
 }
 ```
 
@@ -517,7 +517,7 @@ async function login(page: Page, email: string, password: string) {
 ```typescript
 async function fillForm(page: Page, data: Record<string, string>) {
   for (const [field, value] of Object.entries(data)) {
-    await page.fill(`[name="${field}"]`, value)
+    await page.fill(`[name="${field}"]`, value);
   }
 }
 ```
@@ -527,8 +527,9 @@ async function fillForm(page: Page, data: Record<string, string>) {
 ```typescript
 async function waitForAPICall(page: Page, endpoint: string) {
   return await page.waitForResponse(
-    response => response.url().includes(endpoint) && response.status() === 200
-  )
+    (response) =>
+      response.url().includes(endpoint) && response.status() === 200,
+  );
 }
 ```
 

@@ -67,34 +67,34 @@ text-6xl     60px   - Hero text (desktop)
 {
   /* Page Title */
 }
-;<h1 className="text-4xl md:text-5xl font-bold text-gray-900">Dashboard</h1>
+<h1 className="text-4xl md:text-5xl font-bold text-gray-900">Dashboard</h1>;
 
 {
   /* Section Heading */
 }
-;<h2 className="text-3xl font-semibold text-gray-900">Recent Activity</h2>
+<h2 className="text-3xl font-semibold text-gray-900">Recent Activity</h2>;
 
 {
   /* Subsection */
 }
-;<h3 className="text-2xl font-semibold text-gray-800">This Week</h3>
+<h3 className="text-2xl font-semibold text-gray-800">This Week</h3>;
 
 {
   /* Body */
 }
-;<p className="text-base text-gray-700">
+<p className="text-base text-gray-700">
   Regular paragraph text goes here. This is readable at 16px.
-</p>
+</p>;
 
 {
   /* Secondary Text */
 }
-;<p className="text-sm text-gray-600">Less important information at 14px.</p>
+<p className="text-sm text-gray-600">Less important information at 14px.</p>;
 
 {
   /* Captions */
 }
-;<span className="text-xs text-gray-500">Last updated 2 hours ago</span>
+<span className="text-xs text-gray-500">Last updated 2 hours ago</span>;
 ```
 
 ## Font Weights
@@ -133,23 +133,23 @@ leading-loose     2       - Very spacious
 {
   /* Tight headings */
 }
-;<h1 className="text-5xl font-bold leading-tight">
+<h1 className="text-5xl font-bold leading-tight">
   Save 50% on Your First Order
-</h1>
+</h1>;
 
 {
   /* Normal body */
 }
-;<p className="text-base leading-normal">
+<p className="text-base leading-normal">
   Regular paragraph with comfortable line spacing.
-</p>
+</p>;
 
 {
   /* Relaxed for long-form */
 }
-;<article className="text-lg leading-relaxed">
+<article className="text-lg leading-relaxed">
   Long-form content with extra breathing room.
-</article>
+</article>;
 ```
 
 ## Spacing System (8px Grid)
@@ -179,40 +179,40 @@ space-24    96px   - Hero sections
 {
   /* Small */
 }
-;<button className="px-3 py-2">
-  {' '}
+<button className="px-3 py-2">
+  {" "}
   {/* 12px × 8px */}
   Small
-</button>
+</button>;
 
 {
   /* Medium (Default) */
 }
-;<button className="px-4 py-2">
-  {' '}
+<button className="px-4 py-2">
+  {" "}
   {/* 16px × 8px */}
   Medium
-</button>
+</button>;
 
 {
   /* Large */
 }
-;<button className="px-6 py-3">
-  {' '}
+<button className="px-6 py-3">
+  {" "}
   {/* 24px × 12px */}
   Large
-</button>
+</button>;
 ```
 
 **Form Field Spacing:**
 
 ```jsx
 <div className="space-y-6">
-  {' '}
+  {" "}
   {/* 24px between fields */}
   <div>
     <label className="block mb-2">
-      {' '}
+      {" "}
       {/* 8px below label */}
       Email
     </label>
@@ -231,39 +231,39 @@ space-24    96px   - Hero sections
 {
   /* Compact card */
 }
-;<div className="p-4">
-  {' '}
+<div className="p-4">
+  {" "}
   {/* 16px all around */}
   Content
-</div>
+</div>;
 
 {
   /* Standard card */
 }
-;<div className="p-6">
-  {' '}
+<div className="p-6">
+  {" "}
   {/* 24px all around */}
   Content
-</div>
+</div>;
 
 {
   /* Spacious card */
 }
-;<div className="p-8">
-  {' '}
+<div className="p-8">
+  {" "}
   {/* 32px all around */}
   Content
-</div>
+</div>;
 ```
 
 **Section Spacing:**
 
 ```jsx
 <div className="space-y-12">
-  {' '}
+  {" "}
   {/* 48px between sections */}
   <section className="mb-8">
-    {' '}
+    {" "}
     {/* 32px below */}
     <h2 className="mb-4">Section</h2> {/* 16px below heading */}
     <p>Content</p>
@@ -293,20 +293,20 @@ Long text should never span full width:
 {
   /* Readable line length */
 }
-;<div className="max-w-2xl">
-  {' '}
+<div className="max-w-2xl">
+  {" "}
   {/* 672px max */}
   <p className="text-base leading-relaxed">Long-form content stays readable.</p>
-</div>
+</div>;
 
 {
   /* Even narrower for optimal reading */
 }
-;<article className="max-w-prose">
-  {' '}
+<article className="max-w-prose">
+  {" "}
   {/* 65ch ≈ 650px */}
   Long article content
-</article>
+</article>;
 ```
 
 ## Common Spacing Patterns
@@ -345,7 +345,7 @@ Long text should never span full width:
 
 ```jsx
 <div className="grid grid-cols-3 gap-6">
-  {' '}
+  {" "}
   {/* 24px gap */}
   <div>Item</div>
   <div>Item</div>
@@ -388,7 +388,7 @@ Long text should never span full width:
 
 ```jsx
 <div className="mb-3">
-  {' '}
+  {" "}
   {/* 12px */}
   <p className="mb-5">...</p> {/* 20px - off grid! */}
   <p className="mb-7">...</p> {/* 28px - off grid! */}

@@ -64,11 +64,11 @@ function SettingsCard({ icon, title, description, action, children }) {
       {children && <CardContent>{children}</CardContent>}
       {action && <CardFooter>{action}</CardFooter>}
     </Card>
-  )
+  );
 }
 
 // Reuse everywhere
-;<SettingsCard
+<SettingsCard
   icon="🔔"
   title="Notifications"
   description="Manage your notification preferences"
@@ -76,7 +76,7 @@ function SettingsCard({ icon, title, description, action, children }) {
 >
   <Switch id="email-notifications" />
   <Label htmlFor="email-notifications">Email notifications</Label>
-</SettingsCard>
+</SettingsCard>;
 ```
 
 ### 3. Dialog/Modal Factory
@@ -109,16 +109,16 @@ function ConfirmDialog({
   trigger,
   title,
   description,
-  confirmText = 'Confirm',
-  confirmVariant = 'default',
+  confirmText = "Confirm",
+  confirmVariant = "default",
   onConfirm,
 }) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const handleConfirm = () => {
-    onConfirm?.()
-    setOpen(false)
-  }
+    onConfirm?.();
+    setOpen(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -138,18 +138,18 @@ function ConfirmDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
 // Usage
-;<ConfirmDialog
+<ConfirmDialog
   trigger={<Button variant="destructive">Delete</Button>}
   title="Delete Item"
   description="This action cannot be undone."
   confirmText="Delete"
   confirmVariant="destructive"
   onConfirm={() => handleDelete(item.id)}
-/>
+/>;
 ```
 
 ## State Management Patterns
@@ -160,63 +160,63 @@ function ConfirmDialog({
 
 ```javascript
 function useForm(initialValues) {
-  const [values, setValues] = useState(initialValues)
-  const [errors, setErrors] = useState({})
+  const [values, setValues] = useState(initialValues);
+  const [errors, setErrors] = useState({});
 
-  const handleChange = field => e => {
-    setValues(prev => ({ ...prev, [field]: e.target.value }))
-    setErrors(prev => ({ ...prev, [field]: '' }))
-  }
+  const handleChange = (field) => (e) => {
+    setValues((prev) => ({ ...prev, [field]: e.target.value }));
+    setErrors((prev) => ({ ...prev, [field]: "" }));
+  };
 
-  const validate = rules => {
-    const newErrors = {}
-    Object.keys(rules).forEach(field => {
-      const error = rules[field](values[field])
-      if (error) newErrors[field] = error
-    })
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
+  const validate = (rules) => {
+    const newErrors = {};
+    Object.keys(rules).forEach((field) => {
+      const error = rules[field](values[field]);
+      if (error) newErrors[field] = error;
+    });
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-  return { values, errors, handleChange, validate, setValues }
+  return { values, errors, handleChange, validate, setValues };
 }
 
 // Usage in any form
 function LoginForm() {
   const { values, errors, handleChange, validate } = useForm({
-    email: '',
-    password: '',
-  })
+    email: "",
+    password: "",
+  });
 
   const handleSubmit = () => {
     if (
       validate({
-        email: v => (!v.includes('@') ? 'Invalid email' : null),
-        password: v => (v.length < 6 ? 'Too short' : null),
+        email: (v) => (!v.includes("@") ? "Invalid email" : null),
+        password: (v) => (v.length < 6 ? "Too short" : null),
       })
     ) {
       // Submit form
     }
-  }
+  };
 
   return (
     <div className="space-y-4">
       <FormField
         label="Email"
         value={values.email}
-        onChange={handleChange('email')}
+        onChange={handleChange("email")}
         error={errors.email}
       />
       <FormField
         label="Password"
         type="password"
         value={values.password}
-        onChange={handleChange('password')}
+        onChange={handleChange("password")}
         error={errors.password}
       />
       <Button onClick={handleSubmit}>Login</Button>
     </div>
-  )
+  );
 }
 ```
 
@@ -224,40 +224,40 @@ function LoginForm() {
 
 ```javascript
 function useNotification() {
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   return {
-    success: message =>
+    success: (message) =>
       toast({
-        title: 'Success',
+        title: "Success",
         description: message,
       }),
-    error: message =>
+    error: (message) =>
       toast({
-        title: 'Error',
+        title: "Error",
         description: message,
-        variant: 'destructive',
+        variant: "destructive",
       }),
-    info: message =>
+    info: (message) =>
       toast({
-        title: 'Info',
+        title: "Info",
         description: message,
       }),
-  }
+  };
 }
 
 // Usage
 function Component() {
-  const notify = useNotification()
+  const notify = useNotification();
 
   const handleSave = async () => {
     try {
-      await saveData()
-      notify.success('Data saved successfully')
+      await saveData();
+      notify.success("Data saved successfully");
     } catch (error) {
-      notify.error('Failed to save data')
+      notify.error("Failed to save data");
     }
-  }
+  };
 }
 ```
 
@@ -280,11 +280,11 @@ function PageLayout({ title, description, actions, children }) {
       </div>
       {children}
     </div>
-  )
+  );
 }
 
 // Reuse for all pages
-;<PageLayout
+<PageLayout
   title="Dashboard"
   description="Welcome back"
   actions={
@@ -295,7 +295,7 @@ function PageLayout({ title, description, actions, children }) {
   }
 >
   <div className="grid grid-cols-3 gap-4">{/* Page content */}</div>
-</PageLayout>
+</PageLayout>;
 ```
 
 ### 7. Grid System for Cards
@@ -303,21 +303,21 @@ function PageLayout({ title, description, actions, children }) {
 ```javascript
 function CardGrid({ children, cols = 3 }) {
   const colClasses = {
-    1: 'grid-cols-1',
-    2: 'grid-cols-1 md:grid-cols-2',
-    3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
-    4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
-  }
+    1: "grid-cols-1",
+    2: "grid-cols-1 md:grid-cols-2",
+    3: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+    4: "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
+  };
 
-  return <div className={`grid ${colClasses[cols]} gap-6`}>{children}</div>
+  return <div className={`grid ${colClasses[cols]} gap-6`}>{children}</div>;
 }
 
 // Usage
-;<CardGrid cols={3}>
+<CardGrid cols={3}>
   <Card>...</Card>
   <Card>...</Card>
   <Card>...</Card>
-</CardGrid>
+</CardGrid>;
 ```
 
 ## Data Display Patterns
@@ -329,21 +329,21 @@ function DataTable({
   data,
   columns,
   actions,
-  emptyMessage = 'No data available',
+  emptyMessage = "No data available",
 }) {
   if (data.length === 0) {
     return (
       <div className="text-center py-12 text-muted-foreground">
         {emptyMessage}
       </div>
-    )
+    );
   }
 
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          {columns.map(col => (
+          {columns.map((col) => (
             <TableHead key={col.key}>{col.label}</TableHead>
           ))}
           {actions && <TableHead>Actions</TableHead>}
@@ -352,7 +352,7 @@ function DataTable({
       <TableBody>
         {data.map((row, i) => (
           <TableRow key={i}>
-            {columns.map(col => (
+            {columns.map((col) => (
               <TableCell key={col.key}>
                 {col.render ? col.render(row[col.key], row) : row[col.key]}
               </TableCell>
@@ -362,22 +362,22 @@ function DataTable({
         ))}
       </TableBody>
     </Table>
-  )
+  );
 }
 
 // Usage
-;<DataTable
+<DataTable
   data={users}
   columns={[
-    { key: 'name', label: 'Name' },
-    { key: 'email', label: 'Email' },
+    { key: "name", label: "Name" },
+    { key: "email", label: "Email" },
     {
-      key: 'status',
-      label: 'Status',
-      render: value => <Badge>{value}</Badge>,
+      key: "status",
+      label: "Status",
+      render: (value) => <Badge>{value}</Badge>,
     },
   ]}
-  actions={user => (
+  actions={(user) => (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm">
@@ -392,7 +392,7 @@ function DataTable({
       </DropdownMenuContent>
     </DropdownMenu>
   )}
-/>
+/>;
 ```
 
 ### 9. Status Badge Helper
@@ -425,20 +425,20 @@ function SearchableSelect({
   options,
   value,
   onChange,
-  placeholder = 'Select option',
-  searchPlaceholder = 'Search...',
+  placeholder = "Select option",
+  searchPlaceholder = "Search...",
 }) {
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("");
 
-  const filtered = options.filter(opt =>
-    opt.label.toLowerCase().includes(search.toLowerCase())
-  )
+  const filtered = options.filter((opt) =>
+    opt.label.toLowerCase().includes(search.toLowerCase()),
+  );
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" className="w-full justify-between">
-          {value ? options.find(o => o.value === value)?.label : placeholder}
+          {value ? options.find((o) => o.value === value)?.label : placeholder}
           <ChevronDown className="ml-2 h-4 w-4" />
         </Button>
       </PopoverTrigger>
@@ -452,12 +452,12 @@ function SearchableSelect({
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
-              {filtered.map(option => (
+              {filtered.map((option) => (
                 <CommandItem
                   key={option.value}
                   value={option.value}
                   onSelect={() => {
-                    onChange(option.value)
+                    onChange(option.value);
                   }}
                 >
                   {option.label}
@@ -468,7 +468,7 @@ function SearchableSelect({
         </Command>
       </PopoverContent>
     </Popover>
-  )
+  );
 }
 ```
 

@@ -1,0 +1,121 @@
+# Commit Message Template
+
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+
+# Example:
+# fix(auth): Prevent crash on null email input
+#
+# The authentication function previously crashed when receiving null
+# or undefined email values. This adds proper validation to check
+# for null/undefined before processing.
+#
+# Also improved error messages to be more descriptive for debugging.
+#
+# Fixes #123
+
+# ================== Guidelines ==================
+
+# Types:
+#   feat:     New feature
+#   fix:      Bug fix
+#   docs:     Documentation only
+#   style:    Code style (formatting, no logic change)
+#   refactor: Code restructuring (no behavior change)
+#   perf:     Performance improvement
+#   test:     Adding/updating tests
+#   chore:    Maintenance (dependencies, config)
+#   ci:       CI/CD changes
+
+# Subject Line (first line):
+#   - 50 characters or less
+#   - Imperative mood ("Add" not "Added" or "Adds")
+#   - No period at end
+#   - Capitalize first letter
+#   - Describe what this commit does
+
+# Body (optional, but recommended):
+#   - Wrap at 72 characters
+#   - Explain WHAT and WHY, not HOW
+#   - Separate from subject with blank line
+#   - Can have multiple paragraphs
+
+# Footer (optional):
+#   - Reference issues: Fixes #123, Closes #456, Refs #789
+#   - Breaking changes: BREAKING CHANGE: description
+#   - Co-authors: Co-authored-by: Name <email>
+
+# ================== Good Examples ==================
+
+# Bug Fix:
+# fix: Handle special characters in email validation
+#
+# Previous implementation failed with special characters like '+' or '='
+# in email addresses. Updated the regex pattern to properly handle these
+# characters according to RFC 5322.
+#
+# Fixes #123
+
+# Feature:
+# feat(api): Add pagination to user list endpoint
+#
+# Implements offset-based pagination with configurable page size.
+# Default page size is 20, maximum is 100.
+#
+# Returns pagination metadata in response headers:
+# - X-Total-Count: Total number of items
+# - X-Page-Size: Items per page
+# - X-Page-Number: Current page
+#
+# Fixes #456
+
+# Breaking Change:
+# feat!: Change user ID format from integer to UUID
+#
+# BREAKING CHANGE: User IDs are now UUIDs instead of integers.
+# Clients must update API calls to use UUID format.
+#
+# Migration guide added to docs/migration/v2-to-v3.md
+#
+# Fixes #789
+
+# Documentation:
+# docs: Add examples for custom authentication
+#
+# Added code examples showing:
+# - How to implement custom auth provider
+# - How to configure multiple auth methods
+# - Common troubleshooting scenarios
+#
+# Closes #101
+
+# Refactoring:
+# refactor(db): Extract query builders to separate module
+#
+# Moves query building logic from models to dedicated query builder
+# classes. No functional changes, just better code organization.
+#
+# Makes it easier to add custom queries and maintain existing ones.
+
+# ================== Bad Examples (Don't Do This) ==================
+
+# Too vague:
+# fix: bug fix
+
+# Not imperative:
+# fixed the authentication bug
+
+# Too long subject:
+# fix: Fixed the bug where authentication fails when email contains special characters like plus signs
+
+# No explanation:
+# update code
+
+# Unrelated changes:
+# fix: auth bug, update readme, refactor utils
+
+# Wrong format:
+# Fixed Bug.

@@ -7,32 +7,28 @@ description: Act as a senior QA engineer managing client feedback and GitHub iss
 
 Transform client feedback into well-structured, actionable GitHub issues while avoiding duplicates and maintaining high quality standards.
 
+## Related Skills
+
+**Use with:** `github-issue-resolver` - After creating well-structured issues with this skill, use github-issue-resolver to implement solutions, write tests, and create pull requests.
+
 ## When to Use This Skill
 
-Use qa-github-manager when you need to:
+**Use qa-github-manager when:**
+- ✅ Receiving raw client feedback or bug reports
+- ✅ Needing to structure unstructured feedback
+- ✅ Breaking down complex feedback into atomic issues
+- ✅ Searching for duplicate issues before creating
+- ✅ Deciding whether to reopen or create new
+- ✅ Creating well-formatted GitHub issues with proper labels/priorities
 
-- **Process client feedback** (bug reports, feature requests, complaints)
-- **Transform unstructured feedback** into well-formatted GitHub issues
-- **Break down complex feedback** into atomic, manageable issues
-- **Search for duplicate issues** before creating new ones
-- **Decide whether to reopen** closed issues or create new ones
-- **Ensure issue quality** with proper labels, priorities, and templates
-- **Maintain issue relationships** (linked issues, dependencies)
+**Use github-issue-resolver instead when:**
+- ❌ You already have a well-defined GitHub issue
+- ❌ You need to fetch issue details from GitHub API
+- ❌ You need to implement the fix/feature
+- ❌ You need to write tests for the solution
+- ❌ You need to create a pull request
 
-## When NOT to Use This Skill
-
-**DO NOT use qa-github-manager for:**
-
-- **Implementing solutions** → Use `github-issue-resolver` skill instead
-- **Fixing bugs or adding features** → Use `github-issue-resolver` for implementation
-- **Reviewing pull requests** → Use standard PR review processes
-- **Writing code** → This skill is for issue management only
-- **Project planning** → Use appropriate project management tools
-
-**Clear separation:**
-
-- `qa-github-manager` = Feedback → Issues (QA/triage role)
-- `github-issue-resolver` = Issue → Implementation → PR (developer role)
+**Workflow:** qa-github-manager (intake) → GitHub Issues → github-issue-resolver (implementation)
 
 ## Quick Start
 

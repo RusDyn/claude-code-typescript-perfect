@@ -195,7 +195,7 @@ border-sky-200     - Info border (#BAE6FD)
 {
   /* DON'T: Generic gradients */
 }
-;<div className="bg-gradient-to-r from-purple-500 to-blue-500">{/* NO! */}</div>
+<div className="bg-gradient-to-r from-purple-500 to-blue-500">{/* NO! */}</div>;
 ```
 
 ### Bad Example 3: Too Many Accent Colors
@@ -204,11 +204,11 @@ border-sky-200     - Info border (#BAE6FD)
 {
   /* DON'T: Multiple accent colors */
 }
-;<nav>
+<nav>
   <a className="text-blue-600">Home</a>
   <a className="text-purple-600">About</a>
   <a className="text-green-600">Contact</a>
-</nav>
+</nav>;
 ```
 
 ## Color Combinations

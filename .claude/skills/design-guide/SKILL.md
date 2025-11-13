@@ -1,36 +1,15 @@
 ---
 name: design-guide
-description: Professional UI design decision-making system for visual consistency. Use when (1) Starting new UI design work, (2) Making design decisions (colors, typography, spacing, shadows), (3) Reviewing UI for consistency and visual quality, (4) Resolving design conflicts or style questions. DO NOT use for React component implementation - use shadcn-ui-builder skill for actual code. Focus: design principles, visual hierarchy, color/spacing systems, and design validation.
+description: Modern, professional UI design system focused on clean minimalism, neutral colors with single accent, Tailwind CSS, 8px spacing grid, and mobile-first thinking. Use when building ANY UI component or page. Ensures clean layouts with proper white space, readable typography (16px+ body text), subtle shadows, consistent spacing, and clear interactive states. Prohibits gradients, cluttered designs, tiny text, and inconsistent spacing. Provides component patterns, color systems, typography rules, and layout guidelines for professional interfaces.
 ---
 
 # Design Guide
 
 Professional, modern UI design system that ensures every interface looks clean, minimal, and polished.
 
-## When to Use This Skill
+## Related Skills
 
-Use design-guide when you need to:
-
-- **Make design decisions** about colors, typography, spacing, or visual hierarchy
-- **Start new UI design** and need design direction before implementation
-- **Review existing UI** for consistency and visual quality
-- **Resolve design conflicts** or answer "which looks better?" questions
-- **Validate design choices** against professional standards
-
-## When NOT to Use This Skill
-
-**DO NOT use design-guide for:**
-
-- **React component implementation** → Use `shadcn-ui-builder` skill instead
-- **Writing JSX/TSX code** → Use `shadcn-ui-builder` skill instead
-- **Building actual components** → This skill is for DECISIONS, not CODE
-- **Debugging component behavior** → Use appropriate debugging tools
-- **Data fetching or state management** → This is a design-only skill
-
-**Clear separation:**
-
-- `design-guide` = "What should this look like?" (design decisions)
-- `shadcn-ui-builder` = "How do I build this?" (implementation code)
+**Use with:** `shadcn-ui-builder` - After making design decisions here, use shadcn-ui-builder to implement React components that follow this design system.
 
 ## Core Design Philosophy
 
@@ -185,7 +164,7 @@ Consult these guides for detailed implementation:
 {
   /* Primary - Use accent color */
 }
-;<button
+<button
   className="
   px-4 py-2
   bg-blue-600 hover:bg-blue-700
@@ -196,12 +175,12 @@ Consult these guides for detailed implementation:
 "
 >
   Save Changes
-</button>
+</button>;
 
 {
   /* Secondary - Use neutral */
 }
-;<button
+<button
   className="
   px-4 py-2
   bg-gray-100 hover:bg-gray-200
@@ -211,7 +190,7 @@ Consult these guides for detailed implementation:
 "
 >
   Cancel
-</button>
+</button>;
 ```
 
 ### Card Pattern
@@ -363,13 +342,13 @@ Consult these guides for detailed implementation:
 ```jsx
 <div>
   <section className="mb-3">
-    {' '}
+    {" "}
     {/* 12px - off grid */}
     <h2 className="mb-5">Section</h2> {/* 20px - off grid */}
     <p>Content</p>
   </section>
   <section className="mb-7">
-    {' '}
+    {" "}
     {/* 28px - off grid */}
     <h2 className="mb-2">Section</h2> {/* Inconsistent */}
     <p>Content</p>

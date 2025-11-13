@@ -16,13 +16,14 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion'
-;<Accordion type="single" collapsible>
+} from "@/components/ui/accordion";
+
+<Accordion type="single" collapsible>
   <AccordionItem value="item-1">
     <AccordionTrigger>Section 1</AccordionTrigger>
     <AccordionContent>Content here</AccordionContent>
   </AccordionItem>
-</Accordion>
+</Accordion>;
 ```
 
 **Card**
@@ -35,15 +36,16 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-;<Card>
+} from "@/components/ui/card";
+
+<Card>
   <CardHeader>
     <CardTitle>Title</CardTitle>
     <CardDescription>Description</CardDescription>
   </CardHeader>
   <CardContent>Main content</CardContent>
   <CardFooter>Footer actions</CardFooter>
-</Card>
+</Card>;
 ```
 
 **Separator**
@@ -58,15 +60,16 @@ import { Separator } from '@/components/ui/separator'
 **Tabs**
 
 ```javascript
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-;<Tabs defaultValue="tab1">
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+<Tabs defaultValue="tab1">
   <TabsList>
     <TabsTrigger value="tab1">Tab 1</TabsTrigger>
     <TabsTrigger value="tab2">Tab 2</TabsTrigger>
   </TabsList>
   <TabsContent value="tab1">Content 1</TabsContent>
   <TabsContent value="tab2">Content 2</TabsContent>
-</Tabs>
+</Tabs>;
 ```
 
 ### Forms & Input
@@ -110,8 +113,9 @@ import { Label } from '@/components/ui/label'
 **Textarea**
 
 ```javascript
-import { Textarea } from '@/components/ui/textarea'
-;<Textarea placeholder="Enter description" rows={4} />
+import { Textarea } from "@/components/ui/textarea";
+
+<Textarea placeholder="Enter description" rows={4} />;
 ```
 
 **Checkbox**
@@ -126,8 +130,9 @@ import { Checkbox } from '@/components/ui/checkbox'
 **Radio Group**
 
 ```javascript
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-;<RadioGroup defaultValue="option1">
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
+<RadioGroup defaultValue="option1">
   <div className="flex items-center space-x-2">
     <RadioGroupItem value="option1" id="option1" />
     <Label htmlFor="option1">Option 1</Label>
@@ -136,7 +141,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
     <RadioGroupItem value="option2" id="option2" />
     <Label htmlFor="option2">Option 2</Label>
   </div>
-</RadioGroup>
+</RadioGroup>;
 ```
 
 **Select**
@@ -148,8 +153,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-;<Select>
+} from "@/components/ui/select";
+
+<Select>
   <SelectTrigger className="w-[180px]">
     <SelectValue placeholder="Select option" />
   </SelectTrigger>
@@ -157,7 +163,7 @@ import {
     <SelectItem value="option1">Option 1</SelectItem>
     <SelectItem value="option2">Option 2</SelectItem>
   </SelectContent>
-</Select>
+</Select>;
 ```
 
 **Switch**
@@ -172,8 +178,9 @@ import { Switch } from '@/components/ui/switch'
 **Slider**
 
 ```javascript
-import { Slider } from '@/components/ui/slider'
-;<Slider defaultValue={[50]} max={100} step={1} />
+import { Slider } from "@/components/ui/slider";
+
+<Slider defaultValue={[50]} max={100} step={1} />;
 ```
 
 ### Feedback & Overlay
@@ -207,8 +214,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
-;<AlertDialog>
+} from "@/components/ui/alert-dialog";
+
+<AlertDialog>
   <AlertDialogTrigger asChild>
     <Button variant="outline">Show Dialog</Button>
   </AlertDialogTrigger>
@@ -224,7 +232,7 @@ import {
       <AlertDialogAction>Continue</AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
-</AlertDialog>
+</AlertDialog>;
 ```
 
 **Dialog**
@@ -238,8 +246,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-;<Dialog>
+} from "@/components/ui/dialog";
+
+<Dialog>
   <DialogTrigger asChild>
     <Button>Open Dialog</Button>
   </DialogTrigger>
@@ -253,7 +262,7 @@ import {
       <Button>Save changes</Button>
     </DialogFooter>
   </DialogContent>
-</Dialog>
+</Dialog>;
 ```
 
 **Popover**
@@ -263,33 +272,34 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
-;<Popover>
+} from "@/components/ui/popover";
+
+<Popover>
   <PopoverTrigger asChild>
     <Button variant="outline">Open</Button>
   </PopoverTrigger>
   <PopoverContent className="w-80">
     <div>Popover content</div>
   </PopoverContent>
-</Popover>
+</Popover>;
 ```
 
 **Toast** (use with useToast hook)
 
 ```javascript
-import { useToast } from '@/components/ui/use-toast'
-import { Toaster } from '@/components/ui/toaster'
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 function Component() {
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   return (
     <>
       <Button
         onClick={() =>
           toast({
-            title: 'Success',
-            description: 'Operation completed',
+            title: "Success",
+            description: "Operation completed",
           })
         }
       >
@@ -297,7 +307,7 @@ function Component() {
       </Button>
       <Toaster />
     </>
-  )
+  );
 }
 ```
 
@@ -309,8 +319,9 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip'
-;<TooltipProvider>
+} from "@/components/ui/tooltip";
+
+<TooltipProvider>
   <Tooltip>
     <TooltipTrigger asChild>
       <Button variant="outline">Hover me</Button>
@@ -319,7 +330,7 @@ import {
       <p>Tooltip text</p>
     </TooltipContent>
   </Tooltip>
-</TooltipProvider>
+</TooltipProvider>;
 ```
 
 **Badge**
@@ -336,8 +347,9 @@ import { Badge } from '@/components/ui/badge'
 **Progress**
 
 ```javascript
-import { Progress } from '@/components/ui/progress'
-;<Progress value={33} />
+import { Progress } from "@/components/ui/progress";
+
+<Progress value={33} />;
 ```
 
 **Skeleton**
@@ -364,8 +376,9 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-} from '@/components/ui/dropdown-menu'
-;<DropdownMenu>
+} from "@/components/ui/dropdown-menu";
+
+<DropdownMenu>
   <DropdownMenuTrigger asChild>
     <Button variant="outline">Open Menu</Button>
   </DropdownMenuTrigger>
@@ -377,7 +390,7 @@ import {
     <DropdownMenuSeparator />
     <DropdownMenuItem>Logout</DropdownMenuItem>
   </DropdownMenuContent>
-</DropdownMenu>
+</DropdownMenu>;
 ```
 
 **NavigationMenu**
@@ -390,8 +403,9 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu'
-;<NavigationMenu>
+} from "@/components/ui/navigation-menu";
+
+<NavigationMenu>
   <NavigationMenuList>
     <NavigationMenuItem>
       <NavigationMenuTrigger>Item 1</NavigationMenuTrigger>
@@ -400,7 +414,7 @@ import {
       </NavigationMenuContent>
     </NavigationMenuItem>
   </NavigationMenuList>
-</NavigationMenu>
+</NavigationMenu>;
 ```
 
 **Menubar**
@@ -413,8 +427,9 @@ import {
   MenubarMenu,
   MenubarSeparator,
   MenubarTrigger,
-} from '@/components/ui/menubar'
-;<Menubar>
+} from "@/components/ui/menubar";
+
+<Menubar>
   <MenubarMenu>
     <MenubarTrigger>File</MenubarTrigger>
     <MenubarContent>
@@ -424,7 +439,7 @@ import {
       <MenubarItem>Exit</MenubarItem>
     </MenubarContent>
   </MenubarMenu>
-</Menubar>
+</Menubar>;
 ```
 
 ### Data Display
@@ -440,8 +455,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-;<Table>
+} from "@/components/ui/table";
+
+<Table>
   <TableCaption>A list of items</TableCaption>
   <TableHeader>
     <TableRow>
@@ -455,26 +471,28 @@ import {
       <TableCell>Active</TableCell>
     </TableRow>
   </TableBody>
-</Table>
+</Table>;
 ```
 
 **Avatar**
 
 ```javascript
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-;<Avatar>
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+<Avatar>
   <AvatarImage src="https://example.com/avatar.jpg" alt="User" />
   <AvatarFallback>JD</AvatarFallback>
-</Avatar>
+</Avatar>;
 ```
 
 **AspectRatio**
 
 ```javascript
-import { AspectRatio } from '@/components/ui/aspect-ratio'
-;<AspectRatio ratio={16 / 9}>
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+
+<AspectRatio ratio={16 / 9}>
   <img src="image.jpg" alt="Image" className="rounded-md object-cover" />
-</AspectRatio>
+</AspectRatio>;
 ```
 
 ### Advanced Components
@@ -489,8 +507,9 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet'
-;<Sheet>
+} from "@/components/ui/sheet";
+
+<Sheet>
   <SheetTrigger asChild>
     <Button>Open Sheet</Button>
   </SheetTrigger>
@@ -501,16 +520,17 @@ import {
     </SheetHeader>
     <div>Sheet content</div>
   </SheetContent>
-</Sheet>
+</Sheet>;
 ```
 
 **ScrollArea**
 
 ```javascript
-import { ScrollArea } from '@/components/ui/scroll-area'
-;<ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+<ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
   <div>Long content that scrolls...</div>
-</ScrollArea>
+</ScrollArea>;
 ```
 
 **Command** (Command palette)
@@ -524,8 +544,9 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
-;<Command>
+} from "@/components/ui/command";
+
+<Command>
   <CommandInput placeholder="Type a command..." />
   <CommandList>
     <CommandEmpty>No results found.</CommandEmpty>
@@ -535,7 +556,7 @@ import {
       <CommandItem>Calculator</CommandItem>
     </CommandGroup>
   </CommandList>
-</Command>
+</Command>;
 ```
 
 **ContextMenu**
@@ -546,8 +567,9 @@ import {
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
-} from '@/components/ui/context-menu'
-;<ContextMenu>
+} from "@/components/ui/context-menu";
+
+<ContextMenu>
   <ContextMenuTrigger>
     <div className="border rounded p-4">Right click me</div>
   </ContextMenuTrigger>
@@ -556,7 +578,7 @@ import {
     <ContextMenuItem>Paste</ContextMenuItem>
     <ContextMenuItem>Delete</ContextMenuItem>
   </ContextMenuContent>
-</ContextMenu>
+</ContextMenu>;
 ```
 
 **HoverCard**
@@ -566,25 +588,26 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@/components/ui/hover-card'
-;<HoverCard>
+} from "@/components/ui/hover-card";
+
+<HoverCard>
   <HoverCardTrigger>Hover</HoverCardTrigger>
   <HoverCardContent>
     <div>Additional information</div>
   </HoverCardContent>
-</HoverCard>
+</HoverCard>;
 ```
 
 **Calendar**
 
 ```javascript
-import { Calendar } from '@/components/ui/calendar'
-import { useState } from 'react'
+import { Calendar } from "@/components/ui/calendar";
+import { useState } from "react";
 
 function Component() {
-  const [date, setDate] = useState(new Date())
+  const [date, setDate] = useState(new Date());
 
-  return <Calendar mode="single" selected={date} onSelect={setDate} />
+  return <Calendar mode="single" selected={date} onSelect={setDate} />;
 }
 ```
 
@@ -593,9 +616,9 @@ function Component() {
 ### Form with Validation
 
 ```javascript
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -603,8 +626,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-;<Card>
+} from "@/components/ui/card";
+
+<Card>
   <CardHeader>
     <CardTitle>Create Account</CardTitle>
     <CardDescription>Enter your details below</CardDescription>
@@ -622,7 +646,7 @@ import {
   <CardFooter>
     <Button className="w-full">Sign Up</Button>
   </CardFooter>
-</Card>
+</Card>;
 ```
 
 ### Data Table with Actions
@@ -635,15 +659,16 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { Button } from '@/components/ui/button'
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-;<Table>
+} from "@/components/ui/dropdown-menu";
+
+<Table>
   <TableHeader>
     <TableRow>
       <TableHead>Name</TableHead>
@@ -670,7 +695,7 @@ import {
       </TableCell>
     </TableRow>
   </TableBody>
-</Table>
+</Table>;
 ```
 
 ## Best Practices

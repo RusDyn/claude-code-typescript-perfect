@@ -14,11 +14,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 function LoginForm() {
   return (
@@ -45,7 +45,7 @@ function LoginForm() {
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
 ```
 
@@ -58,10 +58,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+} from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 function UserProfileCard({ user }) {
   return (
@@ -100,7 +100,7 @@ function UserProfileCard({ user }) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
 ```
 
@@ -109,13 +109,13 @@ function UserProfileCard({ user }) {
 ### Stats Grid
 
 ```javascript
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowUp, ArrowDown } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowUp, ArrowDown } from "lucide-react";
 
 function StatsGrid({ stats }) {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      {stats.map(stat => (
+      {stats.map((stat) => (
         <Card key={stat.title}>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -132,7 +132,7 @@ function StatsGrid({ stats }) {
                 <ArrowDown className="h-4 w-4 text-red-500 mr-1" />
               )}
               <span
-                className={stat.change > 0 ? 'text-green-500' : 'text-red-500'}
+                className={stat.change > 0 ? "text-green-500" : "text-red-500"}
               >
                 {Math.abs(stat.change)}%
               </span>
@@ -142,7 +142,7 @@ function StatsGrid({ stats }) {
         </Card>
       ))}
     </div>
-  )
+  );
 }
 ```
 
@@ -155,9 +155,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { ScrollArea } from '@/components/ui/scroll-area'
+} from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 function ActivityFeed({ activities }) {
   return (
@@ -177,7 +177,7 @@ function ActivityFeed({ activities }) {
                 </Avatar>
                 <div className="flex-1 space-y-1">
                   <p className="text-sm">
-                    <span className="font-medium">{activity.user.name}</span>{' '}
+                    <span className="font-medium">{activity.user.name}</span>{" "}
                     {activity.action}
                   </p>
                   <p className="text-xs text-muted-foreground">
@@ -190,7 +190,7 @@ function ActivityFeed({ activities }) {
         </ScrollArea>
       </CardContent>
     </Card>
-  )
+  );
 }
 ```
 
@@ -206,27 +206,30 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+} from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Badge } from '@/components/ui/badge'
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 
 function DataTableWithFilters({ data }) {
-  const [search, setSearch] = useState('')
-  const [statusFilter, setStatusFilter] = useState('all')
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
-  const filtered = data.filter(item => {
-    const matchesSearch = item.name.toLowerCase().includes(search.toLowerCase())
-    const matchesStatus = statusFilter === 'all' || item.status === statusFilter
-    return matchesSearch && matchesStatus
-  })
+  const filtered = data.filter((item) => {
+    const matchesSearch = item.name
+      .toLowerCase()
+      .includes(search.toLowerCase());
+    const matchesStatus =
+      statusFilter === "all" || item.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
   return (
     <div className="space-y-4">
@@ -234,7 +237,7 @@ function DataTableWithFilters({ data }) {
         <Input
           placeholder="Search..."
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value)}
           className="max-w-sm"
         />
         <Select value={statusFilter} onValueChange={setStatusFilter}>
@@ -261,7 +264,7 @@ function DataTableWithFilters({ data }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filtered.map(item => (
+            {filtered.map((item) => (
               <TableRow key={item.id}>
                 <TableCell className="font-medium">{item.name}</TableCell>
                 <TableCell>{item.email}</TableCell>
@@ -279,21 +282,21 @@ function DataTableWithFilters({ data }) {
         </Table>
       </div>
     </div>
-  )
+  );
 }
 ```
 
 ### Kanban Board
 
 ```javascript
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 function KanbanBoard({ columns }) {
   return (
     <div className="flex gap-4 overflow-x-auto pb-4">
-      {columns.map(column => (
+      {columns.map((column) => (
         <div key={column.id} className="flex-shrink-0 w-80">
           <Card>
             <CardHeader>
@@ -305,7 +308,7 @@ function KanbanBoard({ columns }) {
               </div>
             </CardHeader>
             <CardContent className="space-y-3">
-              {column.tasks.map(task => (
+              {column.tasks.map((task) => (
                 <Card key={task.id}>
                   <CardContent className="p-3 space-y-2">
                     <h4 className="font-medium text-sm">{task.title}</h4>
@@ -314,7 +317,7 @@ function KanbanBoard({ columns }) {
                     </p>
                     <div className="flex items-center justify-between">
                       <div className="flex gap-1">
-                        {task.tags.map(tag => (
+                        {task.tags.map((tag) => (
                           <Badge
                             key={tag}
                             variant="outline"
@@ -339,7 +342,7 @@ function KanbanBoard({ columns }) {
         </div>
       ))}
     </div>
-  )
+  );
 }
 ```
 
@@ -354,18 +357,18 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 function SettingsPanel() {
   return (
@@ -440,7 +443,7 @@ function SettingsPanel() {
         <Button>Save Changes</Button>
       </div>
     </div>
-  )
+  );
 }
 ```
 
@@ -449,18 +452,18 @@ function SettingsPanel() {
 ### Sidebar Navigation
 
 ```javascript
-import { Button } from '@/components/ui/button'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Separator } from '@/components/ui/separator'
-import { Home, Users, Settings, FileText } from 'lucide-react'
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Home, Users, Settings, FileText } from "lucide-react";
 
 function Sidebar() {
   const navigation = [
-    { name: 'Dashboard', icon: Home, href: '/dashboard' },
-    { name: 'Users', icon: Users, href: '/users' },
-    { name: 'Documents', icon: FileText, href: '/documents' },
-    { name: 'Settings', icon: Settings, href: '/settings' },
-  ]
+    { name: "Dashboard", icon: Home, href: "/dashboard" },
+    { name: "Users", icon: Users, href: "/users" },
+    { name: "Documents", icon: FileText, href: "/documents" },
+    { name: "Settings", icon: Settings, href: "/settings" },
+  ];
 
   return (
     <div className="w-64 border-r bg-muted/40">
@@ -470,7 +473,7 @@ function Sidebar() {
         </div>
         <ScrollArea className="flex-1 px-3">
           <div className="space-y-1 py-4">
-            {navigation.map(item => (
+            {navigation.map((item) => (
               <Button
                 key={item.name}
                 variant="ghost"
@@ -484,16 +487,16 @@ function Sidebar() {
         </ScrollArea>
       </div>
     </div>
-  )
+  );
 }
 ```
 
 ### Top Navigation Bar
 
 ```javascript
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -501,8 +504,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Bell, Search } from 'lucide-react'
+} from "@/components/ui/dropdown-menu";
+import { Bell, Search } from "lucide-react";
 
 function TopNav() {
   return (
@@ -542,7 +545,7 @@ function TopNav() {
         </div>
       </div>
     </header>
-  )
+  );
 }
 ```
 
@@ -551,11 +554,11 @@ function TopNav() {
 ### Product Card
 
 ```javascript
-import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { AspectRatio } from '@/components/ui/aspect-ratio'
-import { Star } from 'lucide-react'
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Star } from "lucide-react";
 
 function ProductCard({ product }) {
   return (
@@ -578,7 +581,7 @@ function ProductCard({ product }) {
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`h-4 w-4 ${i < product.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`}
+                className={`h-4 w-4 ${i < product.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
               />
             ))}
             <span className="text-sm text-muted-foreground ml-2">
@@ -599,7 +602,7 @@ function ProductCard({ product }) {
         <Button>Add to Cart</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
 ```
 
@@ -615,13 +618,13 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Progress } from '@/components/ui/progress'
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 
 function MultiStepDialog({ open, onClose }) {
-  const [step, setStep] = useState(1)
-  const totalSteps = 3
+  const [step, setStep] = useState(1);
+  const totalSteps = 3;
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -655,7 +658,7 @@ function MultiStepDialog({ open, onClose }) {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 ```
 

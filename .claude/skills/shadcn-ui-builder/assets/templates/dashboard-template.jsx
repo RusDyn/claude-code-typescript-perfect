@@ -1,11 +1,5 @@
 import React, { useState } from 'react'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -13,36 +7,25 @@ import { Badge } from '@/components/ui/badge'
 
 export default function Dashboard() {
   const stats = [
-    {
-      title: 'Total Revenue',
-      value: '$45,231.89',
-      change: '+20.1%',
-      trend: 'up',
-    },
+    { title: 'Total Revenue', value: '$45,231.89', change: '+20.1%', trend: 'up' },
     { title: 'Subscriptions', value: '+2,350', change: '+180.1%', trend: 'up' },
     { title: 'Sales', value: '+12,234', change: '+19%', trend: 'up' },
-    { title: 'Active Now', value: '+573', change: '+201', trend: 'up' },
+    { title: 'Active Now', value: '+573', change: '+201', trend: 'up' }
   ]
 
   const recentActivity = [
-    {
-      user: 'Olivia Martin',
-      email: 'olivia.martin@email.com',
-      amount: '+$1,999.00',
-    },
+    { user: 'Olivia Martin', email: 'olivia.martin@email.com', amount: '+$1,999.00' },
     { user: 'Jackson Lee', email: 'jackson.lee@email.com', amount: '+$39.00' },
-    {
-      user: 'Isabella Nguyen',
-      email: 'isabella.nguyen@email.com',
-      amount: '+$299.00',
-    },
+    { user: 'Isabella Nguyen', email: 'isabella.nguyen@email.com', amount: '+$299.00' }
   ]
 
   return (
     <div className="flex min-h-screen w-full flex-col">
       {/* Header */}
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
-        <nav className="flex-1 text-lg font-semibold">Dashboard</nav>
+        <nav className="flex-1 text-lg font-semibold">
+          Dashboard
+        </nav>
         <Button variant="outline" size="sm">
           Settings
         </Button>
@@ -111,12 +94,7 @@ export default function Dashboard() {
                     {recentActivity.map((activity, i) => (
                       <div key={i} className="flex items-center">
                         <Avatar className="h-9 w-9">
-                          <AvatarFallback>
-                            {activity.user
-                              .split(' ')
-                              .map(n => n[0])
-                              .join('')}
-                          </AvatarFallback>
+                          <AvatarFallback>{activity.user.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                         </Avatar>
                         <div className="ml-4 space-y-1">
                           <p className="text-sm font-medium leading-none">

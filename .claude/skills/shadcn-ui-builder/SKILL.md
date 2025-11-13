@@ -1,39 +1,15 @@
 ---
 name: shadcn-ui-builder
-description: Implement React components using shadcn/ui library with focus on code reusability and composition patterns. Use when (1) Building data tables with CRUD operations, (2) Creating form components with validation, (3) Implementing dashboard layouts, (4) Composing complex UI from shadcn components, (5) Avoiding code duplication in React, (6) Extracting reusable patterns. For design decisions (colors, spacing, typography), use design-guide skill first. Focus: React implementation, component composition, custom hooks, and anti-duplication patterns.
+description: Build React applications using the full shadcn/ui component library with best practices for code reusability and organization. Use when creating React artifacts, dashboards, forms, data tables, or any UI requiring shadcn/ui components. Focuses on avoiding code duplication through component composition, custom hooks, and reusable patterns. Includes complete component reference, design patterns, and production-ready templates.
 ---
 
 # shadcn/ui Builder
 
 Comprehensive toolkit for building React applications with shadcn/ui, emphasizing code reusability and clean architecture.
 
-## When to Use This Skill
+## Related Skills
 
-Use shadcn-ui-builder when you need to:
-
-- **Implement React components** using shadcn/ui component library
-- **Build data tables** with search, filtering, sorting, and CRUD operations
-- **Create forms** with validation, error handling, and submission logic
-- **Implement dashboard layouts** with stats, charts, and activity feeds
-- **Compose complex UI** by combining multiple shadcn/ui components
-- **Extract reusable patterns** to avoid code duplication
-- **Write JSX/TSX code** for UI components
-
-## When NOT to Use This Skill
-
-**DO NOT use shadcn-ui-builder for:**
-
-- **Design decisions** (colors, spacing, typography) → Use `design-guide` skill first
-- **Visual styling questions** ("what should this look like?") → Use `design-guide` skill
-- **E2E testing** → Use `playwright-test-builder` or `playwright-automation`
-- **Database operations** → Use `supabase-manager` or appropriate DB skill
-- **API implementation** → Focus on UI implementation only
-- **Non-React frameworks** → This skill is React/shadcn-specific
-
-**Workflow:**
-
-1. Use `design-guide` to make design decisions (colors, spacing, hierarchy)
-2. Use `shadcn-ui-builder` to implement those decisions in React code
+**Use with:** `design-guide` - For design decisions (colors, spacing, typography) before implementing components. The design-guide skill provides the visual design system while shadcn-ui-builder handles React implementation.
 
 ## Core Principles
 
@@ -60,10 +36,10 @@ function FormField({ id, label, type, ...props }) {
       <Label htmlFor={id}>{label}</Label>
       <Input id={id} type={type} {...props} />
     </div>
-  )
+  );
 }
 
-;<FormField id="email" label="Email" type="email" />
+<FormField id="email" label="Email" type="email" />;
 ```
 
 ### 2. Component Composition
@@ -86,7 +62,7 @@ function SettingsCard({ icon, title, description, action, children }) {
       {children && <CardContent>{children}</CardContent>}
       {action && <CardFooter>{action}</CardFooter>}
     </Card>
-  )
+  );
 }
 ```
 
@@ -96,15 +72,15 @@ Extract stateful logic into reusable hooks.
 
 ```javascript
 function useForm(initialValues) {
-  const [values, setValues] = useState(initialValues)
-  const [errors, setErrors] = useState({})
+  const [values, setValues] = useState(initialValues);
+  const [errors, setErrors] = useState({});
 
-  const handleChange = field => e => {
-    setValues(prev => ({ ...prev, [field]: e.target.value }))
-    setErrors(prev => ({ ...prev, [field]: '' }))
-  }
+  const handleChange = (field) => (e) => {
+    setValues((prev) => ({ ...prev, [field]: e.target.value }));
+    setErrors((prev) => ({ ...prev, [field]: "" }));
+  };
 
-  return { values, errors, handleChange }
+  return { values, errors, handleChange };
 }
 ```
 
@@ -113,8 +89,8 @@ function useForm(initialValues) {
 ### Basic Application Structure
 
 ```javascript
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function App() {
   return (
@@ -128,7 +104,7 @@ export default function App() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
 ```
 
@@ -137,10 +113,10 @@ export default function App() {
 All components import from `@/components/ui/[component-name]`:
 
 ```javascript
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 ```
 
 ## Component Categories
@@ -260,21 +236,21 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 ```javascript
 function LoginForm() {
-  const [formData, setFormData] = useState({ email: '', password: '' })
-  const [errors, setErrors] = useState({})
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({});
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    const newErrors = {}
-    if (!formData.email.includes('@')) newErrors.email = 'Invalid email'
-    if (formData.password.length < 6) newErrors.password = 'Too short'
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = {};
+    if (!formData.email.includes("@")) newErrors.email = "Invalid email";
+    if (formData.password.length < 6) newErrors.password = "Too short";
 
     if (Object.keys(newErrors).length === 0) {
       // Submit form
     } else {
-      setErrors(newErrors)
+      setErrors(newErrors);
     }
-  }
+  };
 
   return (
     <Card className="w-full max-w-md">
@@ -289,7 +265,7 @@ function LoginForm() {
               id="email"
               type="email"
               value={formData.email}
-              onChange={e =>
+              onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
             />
@@ -303,7 +279,7 @@ function LoginForm() {
               id="password"
               type="password"
               value={formData.password}
-              onChange={e =>
+              onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
               }
             />
@@ -319,7 +295,7 @@ function LoginForm() {
         </CardFooter>
       </form>
     </Card>
-  )
+  );
 }
 ```
 
@@ -327,18 +303,18 @@ function LoginForm() {
 
 ```javascript
 function UserTable({ users }) {
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("");
 
-  const filtered = users.filter(u =>
-    u.name.toLowerCase().includes(search.toLowerCase())
-  )
+  const filtered = users.filter((u) =>
+    u.name.toLowerCase().includes(search.toLowerCase()),
+  );
 
   return (
     <div className="space-y-4">
       <Input
         placeholder="Search..."
         value={search}
-        onChange={e => setSearch(e.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
         className="max-w-sm"
       />
 
@@ -353,7 +329,7 @@ function UserTable({ users }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filtered.map(user => (
+            {filtered.map((user) => (
               <TableRow key={user.id}>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
@@ -379,7 +355,7 @@ function UserTable({ users }) {
         </Table>
       </div>
     </div>
-  )
+  );
 }
 ```
 
@@ -387,7 +363,7 @@ function UserTable({ users }) {
 
 ```javascript
 function ConfirmDialog({ trigger, title, description, onConfirm }) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -401,8 +377,8 @@ function ConfirmDialog({ trigger, title, description, onConfirm }) {
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={() => {
-              onConfirm()
-              setOpen(false)
+              onConfirm();
+              setOpen(false);
             }}
           >
             Confirm
@@ -410,16 +386,16 @@ function ConfirmDialog({ trigger, title, description, onConfirm }) {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
+  );
 }
 
 // Usage
-;<ConfirmDialog
+<ConfirmDialog
   trigger={<Button variant="destructive">Delete</Button>}
   title="Delete Item"
   description="This action cannot be undone."
   onConfirm={() => handleDelete(item.id)}
-/>
+/>;
 ```
 
 ## Best Practices
@@ -477,11 +453,11 @@ function ConfirmDialog({ trigger, title, description, onConfirm }) {
 **Common Imports:**
 
 ```javascript
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -489,7 +465,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from "@/components/ui/table";
 ```
 
 **Button Variants:**

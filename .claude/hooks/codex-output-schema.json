@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "findings",
+    "overall_correctness",
+    "overall_confidence_score",
+    "summary"
+  ],
+  "properties": {
+    "findings": {
+      "type": "array",
+      "description": "List of issues found in the code review",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "body",
+          "confidence",
+          "priority",
+          "code_location"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Brief title of the issue"
+          },
+          "body": {
+            "type": "string",
+            "description": "Detailed explanation of the issue and suggested fix"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Confidence score between 0 and 1"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"],
+            "description": "Priority level of the issue"
+          },
+          "code_location": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["file_path", "line_start", "line_end"],
+            "properties": {
+              "file_path": {
+                "type": "string",
+                "description": "Absolute or relative file path"
+              },
+              "line_start": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Starting line number"
+              },
+              "line_end": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Ending line number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "overall_correctness": {
+      "type": "string",
+      "enum": ["correct", "incorrect", "uncertain"],
+      "description": "Overall assessment of code correctness"
+    },
+    "overall_confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Overall confidence in the review between 0 and 1"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Brief summary of the code review"
+    }
+  }
+}

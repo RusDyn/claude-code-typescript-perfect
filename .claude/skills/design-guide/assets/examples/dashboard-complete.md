@@ -159,7 +159,7 @@ export default function Dashboard() {
                 </h3>
               </div>
               <div className="divide-y divide-gray-200">
-                {[1, 2, 3, 4].map(item => (
+                {[1, 2, 3, 4].map((item) => (
                   <div
                     key={item}
                     className="px-6 py-4 flex items-center justify-between"
@@ -222,7 +222,7 @@ export default function Dashboard() {
                 Recent Activity
               </h3>
               <div className="space-y-4">
-                {[1, 2, 3].map(item => (
+                {[1, 2, 3].map((item) => (
                   <div key={item} className="flex gap-3">
                     <div className="flex-shrink-0 w-2 h-2 bg-blue-600 rounded-full mt-2" />
                     <div>
@@ -264,7 +264,7 @@ export default function Dashboard() {
         </div>
       </main>
     </div>
-  )
+  );
 }
 ```
 

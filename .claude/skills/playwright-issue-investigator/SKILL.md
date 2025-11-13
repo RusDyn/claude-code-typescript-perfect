@@ -7,22 +7,48 @@ description: Debug Playwright tests and investigate issues with comprehensive to
 
 Debug and investigate test failures with comprehensive debugging tools.
 
+## Related Skills
+
+**Use with:** `playwright-test-builder` - For creating new tests and expanding coverage. Use this investigator skill when those tests fail or need debugging.
+
+## When to Use This Skill
+
+**Use playwright-issue-investigator when:**
+- ✅ Tests are failing and you need to understand why
+- ✅ Debugging flaky or intermittent test failures
+- ✅ Capturing screenshots for bug reports or documentation
+- ✅ Recording videos of test execution
+- ✅ Analyzing trace files for detailed debugging
+- ✅ Inspecting network requests and responses
+- ✅ Performing visual regression testing
+- ✅ Investigating performance issues
+
+**Use playwright-test-builder instead when:**
+- ❌ Creating new test files and test cases
+- ❌ Setting up Page Object Model
+- ❌ Organizing test structure
+- ❌ Setting up test fixtures and database data
+- ❌ Configuring CI/CD pipelines
+- ❌ Planning test coverage strategy
+
+**Workflow:** playwright-test-builder (create) → Run Tests → playwright-issue-investigator (debug failures)
+
 ## Quick Start
 
 ### Capture Screenshots
 
 ```typescript
 // On test failure (automatic)
-test.use({ screenshot: 'only-on-failure' })
+test.use({ screenshot: "only-on-failure" });
 
 // On demand
-await page.screenshot({ path: 'screenshot.png' })
+await page.screenshot({ path: "screenshot.png" });
 
 // Full page
-await page.screenshot({ path: 'full.png', fullPage: true })
+await page.screenshot({ path: "full.png", fullPage: true });
 
 // Element screenshot
-await page.locator('.element').screenshot({ path: 'element.png' })
+await page.locator(".element").screenshot({ path: "element.png" });
 ```
 
 ### Record Videos
@@ -62,25 +88,25 @@ use: {
 
 ```typescript
 test.afterEach(async ({ page }, testInfo) => {
-  if (testInfo.status === 'failed') {
+  if (testInfo.status === "failed") {
     await page.screenshot({
       path: `screenshots/${testInfo.title}-failure.png`,
       fullPage: true,
-    })
+    });
   }
-})
+});
 ```
 
 **Documentation Screenshots**:
 
 ```typescript
-test('capture user flow', async ({ page }) => {
-  await page.goto('/')
-  await page.screenshot({ path: 'docs/step1-homepage.png' })
+test("capture user flow", async ({ page }) => {
+  await page.goto("/");
+  await page.screenshot({ path: "docs/step1-homepage.png" });
 
-  await page.click('button')
-  await page.screenshot({ path: 'docs/step2-clicked.png' })
-})
+  await page.click("button");
+  await page.screenshot({ path: "docs/step2-clicked.png" });
+});
 ```
 
 ### 2. Video Recording
@@ -116,38 +142,38 @@ Traces include:
 ### 4. Console Log Capture
 
 ```typescript
-test('capture console', async ({ page }) => {
-  const logs: string[] = []
+test("capture console", async ({ page }) => {
+  const logs: string[] = [];
 
-  page.on('console', msg => logs.push(msg.text()))
+  page.on("console", (msg) => logs.push(msg.text()));
 
-  await page.goto('/')
+  await page.goto("/");
 
-  console.log('Console logs:', logs)
-})
+  console.log("Console logs:", logs);
+});
 ```
 
 ### 5. Network Inspection
 
 ```typescript
-test('monitor API calls', async ({ page }) => {
+test("monitor API calls", async ({ page }) => {
   // Listen to requests
-  page.on('request', request => {
-    console.log('Request:', request.url())
-  })
+  page.on("request", (request) => {
+    console.log("Request:", request.url());
+  });
 
   // Listen to responses
-  page.on('response', response => {
-    console.log('Response:', response.url(), response.status())
-  })
+  page.on("response", (response) => {
+    console.log("Response:", response.url(), response.status());
+  });
 
   // Wait for specific API call
-  const response = await page.waitForResponse(resp =>
-    resp.url().includes('/api/users')
-  )
+  const response = await page.waitForResponse((resp) =>
+    resp.url().includes("/api/users"),
+  );
 
-  console.log('API Response:', await response.json())
-})
+  console.log("API Response:", await response.json());
+});
 ```
 
 ## Debugging Techniques
@@ -179,10 +205,10 @@ npx playwright test --headed --slow-mo=1000
 
 ```typescript
 // Pause execution
-await page.pause()
+await page.pause();
 
 // Step through
-await page.screenshot() // Take screenshot at this point
+await page.screenshot(); // Take screenshot at this point
 ```
 
 ## Visual Regression Testing
@@ -190,12 +216,12 @@ await page.screenshot() // Take screenshot at this point
 ### Setup
 
 ```typescript
-test('visual regression', async ({ page }) => {
-  await page.goto('/')
+test("visual regression", async ({ page }) => {
+  await page.goto("/");
 
   // Compare against baseline
-  await expect(page).toHaveScreenshot('homepage.png')
-})
+  await expect(page).toHaveScreenshot("homepage.png");
+});
 
 // First run creates baseline
 // Subsequent runs compare
@@ -249,29 +275,6 @@ expect: {
 4. Measure load times
 5. Identify bottlenecks
 
-## Helper Functions
-
-Use automation helpers from `playwright-test-builder` for reliable debugging:
-
-```typescript
-import {
-  captureConsoleLogs,
-  monitorNetwork,
-  takeScreenshot,
-} from '../playwright-test-builder/scripts/test-helpers'
-
-test('debug failing test', async ({ page }) => {
-  const consoleLogs = captureConsoleLogs(page, 'error')
-  const networkRequests = monitorNetwork(page, '/api/')
-
-  // Your test code...
-
-  // Review captured data
-  console.log('Console errors:', consoleLogs)
-  console.log('API calls:', networkRequests)
-})
-```
-
 ## Best Practices
 
 1. **Always capture on failure** - Screenshots and videos
@@ -280,11 +283,5 @@ test('debug failing test', async ({ page }) => {
 4. **Capture console logs** - JavaScript errors
 5. **Visual regression** - Catch UI changes
 6. **Document with screenshots** - For bug reports
-7. **Use helper functions** - Consistent debugging approach
-
-## Integration with Other Skills
-
-- **playwright-automation**: Use for exploring issues outside the test suite
-- **playwright-test-builder**: Use helper functions for consistent debugging
 
 This skill helps you quickly identify and resolve test failures and bugs.

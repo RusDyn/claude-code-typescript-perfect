@@ -81,17 +81,17 @@ Professional, modern component designs with Tailwind CSS.
 {
   /* Small */
 }
-;<button className="px-3 py-1.5 text-sm">Small</button>
+<button className="px-3 py-1.5 text-sm">Small</button>;
 
 {
   /* Medium (Default) */
 }
-;<button className="px-4 py-2 text-base">Medium</button>
+<button className="px-4 py-2 text-base">Medium</button>;
 
 {
   /* Large */
 }
-;<button className="px-6 py-3 text-lg">Large</button>
+<button className="px-6 py-3 text-lg">Large</button>;
 ```
 
 ### ❌ Bad Button Examples
@@ -100,17 +100,17 @@ Professional, modern component designs with Tailwind CSS.
 {
   /* DON'T: Gradient */
 }
-;<button className="bg-gradient-to-r from-purple-500 to-blue-500">Bad</button>
+<button className="bg-gradient-to-r from-purple-500 to-blue-500">Bad</button>;
 
 {
   /* DON'T: Heavy shadow */
 }
-;<button className="shadow-2xl">Too Much Shadow</button>
+<button className="shadow-2xl">Too Much Shadow</button>;
 
 {
   /* DON'T: Over-rounded */
 }
-;<button className="rounded-full px-12">Too Round</button>
+<button className="rounded-full px-12">Too Round</button>;
 ```
 
 ## Cards
@@ -173,17 +173,17 @@ Professional, modern component designs with Tailwind CSS.
 {
   /* DON'T: Both border AND heavy shadow */
 }
-;<div className="border-2 border-gray-300 shadow-2xl">Too much</div>
+<div className="border-2 border-gray-300 shadow-2xl">Too much</div>;
 
 {
   /* DON'T: No visual separation */
 }
-;<div className="bg-white">No border or shadow - blends with background</div>
+<div className="bg-white">No border or shadow - blends with background</div>;
 
 {
   /* DON'T: Too much border radius */
 }
-;<div className="rounded-3xl">Overly rounded</div>
+<div className="rounded-3xl">Overly rounded</div>;
 ```
 
 ## Forms
@@ -388,7 +388,7 @@ Professional, modern component designs with Tailwind CSS.
 {
   /* Success */
 }
-;<span
+<span
   className="
   inline-flex items-center gap-1
   px-3 py-1
@@ -399,28 +399,28 @@ Professional, modern component designs with Tailwind CSS.
 "
 >
   Active
-</span>
+</span>;
 
 {
   /* Warning */
 }
-;<span className="inline-flex items-center gap-1 px-3 py-1 bg-yellow-50 text-yellow-700 text-sm font-medium rounded-full border border-yellow-200">
+<span className="inline-flex items-center gap-1 px-3 py-1 bg-yellow-50 text-yellow-700 text-sm font-medium rounded-full border border-yellow-200">
   Pending
-</span>
+</span>;
 
 {
   /* Error */
 }
-;<span className="inline-flex items-center gap-1 px-3 py-1 bg-red-50 text-red-700 text-sm font-medium rounded-full border border-red-200">
+<span className="inline-flex items-center gap-1 px-3 py-1 bg-red-50 text-red-700 text-sm font-medium rounded-full border border-red-200">
   Failed
-</span>
+</span>;
 
 {
   /* Neutral */
 }
-;<span className="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-full">
+<span className="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-full">
   Draft
-</span>
+</span>;
 ```
 
 ### Tag (Removable)

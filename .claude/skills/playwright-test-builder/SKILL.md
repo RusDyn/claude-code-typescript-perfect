@@ -7,40 +7,34 @@ description: Build comprehensive Playwright E2E test suites with best practices 
 
 Comprehensive toolkit for building maintainable E2E test suites with Playwright.
 
+## Related Skills
+
+**Use with:** `playwright-issue-investigator` - When tests fail or become flaky, use the investigator skill to debug with screenshots, traces, and network analysis.
+
+## When to Use This Skill
+
+**Use playwright-test-builder when:**
+- ✅ Building new test suites from scratch
+- ✅ Expanding test coverage
+- ✅ Implementing Page Object Model
+- ✅ Setting up test infrastructure and fixtures
+- ✅ Organizing test code structure
+- ✅ Creating database test data
+- ✅ Setting up CI/CD integration
+
+**Use playwright-issue-investigator instead when:**
+- ❌ Tests are failing and you need to debug
+- ❌ Investigating flaky tests
+- ❌ Capturing screenshots or videos
+- ❌ Analyzing network requests
+- ❌ Performing visual regression testing
+- ❌ Creating bug documentation
+
+**Workflow:** playwright-test-builder (create) → Run Tests → playwright-issue-investigator (debug failures)
+
 ## Quick Start
 
-### 1. Use Helper Functions in Tests
-
-```typescript
-import { test, expect } from '@playwright/test'
-import {
-  safeClick,
-  safeType,
-  fillForm,
-  login,
-  expectVisible,
-} from './.claude/skills/playwright-test-builder/scripts/test-helpers'
-
-test('user can submit form', async ({ page }) => {
-  await page.goto('/contact')
-
-  await fillForm(
-    page,
-    {
-      name: 'John Doe',
-      email: 'john@example.com',
-      message: 'Test message',
-    },
-    {
-      submitButton: 'button[type="submit"]',
-    }
-  )
-
-  await expectVisible(page, '.success-message')
-})
-```
-
-### 2. Generate Test Scaffolding
+### 1. Generate Test Scaffolding
 
 ```bash
 # Generate a basic test file
@@ -60,7 +54,7 @@ python scripts/generate_test_scaffold.py '{
 }'
 ```
 
-### 3. Analyze Coverage
+### 2. Analyze Coverage
 
 ```bash
 python scripts/analyze_coverage.py ./tests ecommerce ./pages
@@ -82,9 +76,9 @@ export class LoginPage {
   constructor(private page: Page) {}
 
   async login(email: string, password: string) {
-    await this.page.fill('[name="email"]', email)
-    await this.page.fill('[name="password"]', password)
-    await this.page.click('button[type="submit"]')
+    await this.page.fill('[name="email"]', email);
+    await this.page.fill('[name="password"]', password);
+    await this.page.click('button[type="submit"]');
   }
 }
 ```
@@ -96,60 +90,12 @@ export class LoginPage {
 - **references/database-fixtures.md** - Database setup and test data
 - **references/cicd-integration.md** - CI/CD workflows
 
-## Helper Functions
-
-Located in `scripts/test-helpers.ts`, these utilities make tests more reliable:
-
-### Interaction Helpers
-
-- `safeClick(page, selector, options)` - Click with retry logic
-- `safeType(page, selector, text, options)` - Type with auto-clear
-- `fillForm(page, formData, options)` - Fill multiple fields at once
-- `scrollToElement(page, selector)` - Scroll element into view
-
-### Waiting Helpers
-
-- `waitForVisible(page, selector)` - Wait for element visibility
-- `waitForHidden(page, selector)` - Wait for element to hide
-- `waitForText(page, text)` - Wait for text to appear
-- `waitForNetworkIdle(page)` - Wait for network activity to settle
-
-### Data Helpers
-
-- `getText(page, selector)` - Get text content safely
-- `elementExists(page, selector)` - Check if element exists
-- `extractTableData(page, tableSelector)` - Extract table to JSON
-
-### Debugging Helpers
-
-- `captureConsoleLogs(page, filter)` - Capture console output
-- `monitorNetwork(page, urlFilter)` - Monitor API calls
-
-### Authentication
-
-- `login(page, credentials, options)` - Reusable login helper
-
-### Assertion Helpers
-
-- `expectVisible(page, selector)` - Assert visibility
-- `expectHidden(page, selector)` - Assert hidden
-- `expectText(page, selector, text)` - Assert text content
-- `expectUrl(page, url)` - Assert current URL
-
 ## Best Practices
 
-1. **Test independence** - Each test should run standalone
-2. **Meaningful names** - Describe what is being tested
-3. **Stable selectors** - Use data-testid, ARIA roles, or semantic selectors
-4. **Clean test data** - Reset database state between tests
-5. **Use Page Objects** - Encapsulate page interactions
-6. **Use helper functions** - Import from test-helpers.ts for reliability
-7. **Handle waits properly** - Use appropriate wait strategies
-8. **Capture errors** - Screenshots and logs on failure
-
-## Integration with Other Skills
-
-- **playwright-automation**: Use for quick ad-hoc automation before building formal tests
-- **playwright-issue-investigator**: Use for debugging test failures with traces and network analysis
+1. Test independence
+2. Meaningful names
+3. Stable selectors
+4. Clean test data
+5. Use Page Objects
 
 Start building comprehensive test coverage with confidence!

@@ -1,65 +1,19 @@
 import React, { useState } from 'react'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 
 export default function DataTableCRUD() {
   const [data, setData] = useState([
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john@example.com',
-      role: 'Admin',
-      status: 'active',
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      email: 'jane@example.com',
-      role: 'User',
-      status: 'active',
-    },
-    {
-      id: 3,
-      name: 'Bob Johnson',
-      email: 'bob@example.com',
-      role: 'User',
-      status: 'inactive',
-    },
+    { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin', status: 'active' },
+    { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'User', status: 'active' },
+    { id: 3, name: 'Bob Johnson', email: 'bob@example.com', role: 'User', status: 'inactive' }
   ])
 
   const [search, setSearch] = useState('')
@@ -68,25 +22,24 @@ export default function DataTableCRUD() {
   const [selected, setSelected] = useState([])
 
   // Filter data based on search
-  const filteredData = data.filter(
-    item =>
-      item.name.toLowerCase().includes(search.toLowerCase()) ||
-      item.email.toLowerCase().includes(search.toLowerCase())
+  const filteredData = data.filter(item =>
+    item.name.toLowerCase().includes(search.toLowerCase()) ||
+    item.email.toLowerCase().includes(search.toLowerCase())
   )
 
   // CRUD Operations
-  const handleCreate = newItem => {
+  const handleCreate = (newItem) => {
     setData([...data, { ...newItem, id: Math.max(...data.map(d => d.id)) + 1 }])
     setIsDialogOpen(false)
   }
 
-  const handleUpdate = updatedItem => {
-    setData(data.map(item => (item.id === updatedItem.id ? updatedItem : item)))
+  const handleUpdate = (updatedItem) => {
+    setData(data.map(item => item.id === updatedItem.id ? updatedItem : item))
     setEditingItem(null)
     setIsDialogOpen(false)
   }
 
-  const handleDelete = id => {
+  const handleDelete = (id) => {
     setData(data.filter(item => item.id !== id))
   }
 
@@ -95,18 +48,14 @@ export default function DataTableCRUD() {
     setSelected([])
   }
 
-  const toggleSelection = id => {
+  const toggleSelection = (id) => {
     setSelected(prev =>
       prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
     )
   }
 
   const toggleSelectAll = () => {
-    setSelected(
-      selected.length === filteredData.length
-        ? []
-        : filteredData.map(item => item.id)
-    )
+    setSelected(selected.length === filteredData.length ? [] : filteredData.map(item => item.id))
   }
 
   return (
@@ -114,10 +63,7 @@ export default function DataTableCRUD() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold tracking-tight">Users</h2>
-        <Dialog
-          open={isDialogOpen && !editingItem}
-          onOpenChange={setIsDialogOpen}
-        >
+        <Dialog open={isDialogOpen && !editingItem} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button onClick={() => setEditingItem(null)}>Add New User</Button>
           </DialogTrigger>
@@ -135,7 +81,7 @@ export default function DataTableCRUD() {
         <Input
           placeholder="Search users..."
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value)}
           className="max-w-sm"
         />
         {selected.length > 0 && (
@@ -152,10 +98,7 @@ export default function DataTableCRUD() {
             <TableRow>
               <TableHead className="w-12">
                 <Checkbox
-                  checked={
-                    selected.length === filteredData.length &&
-                    filteredData.length > 0
-                  }
+                  checked={selected.length === filteredData.length && filteredData.length > 0}
                   onCheckedChange={toggleSelectAll}
                 />
               </TableHead>
@@ -169,15 +112,12 @@ export default function DataTableCRUD() {
           <TableBody>
             {filteredData.length === 0 ? (
               <TableRow>
-                <TableCell
-                  colSpan={6}
-                  className="text-center text-muted-foreground"
-                >
+                <TableCell colSpan={6} className="text-center text-muted-foreground">
                   No users found
                 </TableCell>
               </TableRow>
             ) : (
-              filteredData.map(item => (
+              filteredData.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell>
                     <Checkbox
@@ -189,30 +129,22 @@ export default function DataTableCRUD() {
                   <TableCell>{item.email}</TableCell>
                   <TableCell>{item.role}</TableCell>
                   <TableCell>
-                    <Badge
-                      variant={
-                        item.status === 'active' ? 'default' : 'secondary'
-                      }
-                    >
+                    <Badge variant={item.status === 'active' ? 'default' : 'secondary'}>
                       {item.status}
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="sm">
-                          •••
-                        </Button>
+                        <Button variant="ghost" size="sm">•••</Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          onClick={() => {
-                            setEditingItem(item)
-                            setIsDialogOpen(true)
-                          }}
-                        >
+                        <DropdownMenuItem onClick={() => {
+                          setEditingItem(item)
+                          setIsDialogOpen(true)
+                        }}>
                           Edit
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => handleDelete(item.id)}>
@@ -248,16 +180,14 @@ export default function DataTableCRUD() {
 }
 
 function UserForm({ initialData, onSubmit, onCancel }) {
-  const [formData, setFormData] = useState(
-    initialData || {
-      name: '',
-      email: '',
-      role: 'User',
-      status: 'active',
-    }
-  )
+  const [formData, setFormData] = useState(initialData || {
+    name: '',
+    email: '',
+    role: 'User',
+    status: 'active'
+  })
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     onSubmit(formData)
   }
@@ -265,13 +195,9 @@ function UserForm({ initialData, onSubmit, onCancel }) {
   return (
     <form onSubmit={handleSubmit}>
       <DialogHeader>
-        <DialogTitle>
-          {initialData ? 'Edit User' : 'Create New User'}
-        </DialogTitle>
+        <DialogTitle>{initialData ? 'Edit User' : 'Create New User'}</DialogTitle>
         <DialogDescription>
-          {initialData
-            ? 'Update user information'
-            : 'Add a new user to the system'}
+          {initialData ? 'Update user information' : 'Add a new user to the system'}
         </DialogDescription>
       </DialogHeader>
       <div className="grid gap-4 py-4">
@@ -280,7 +206,7 @@ function UserForm({ initialData, onSubmit, onCancel }) {
           <Input
             id="name"
             value={formData.name}
-            onChange={e => setFormData({ ...formData, name: e.target.value })}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
           />
         </div>
@@ -290,16 +216,13 @@ function UserForm({ initialData, onSubmit, onCancel }) {
             id="email"
             type="email"
             value={formData.email}
-            onChange={e => setFormData({ ...formData, email: e.target.value })}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
           />
         </div>
         <div className="space-y-2">
           <Label htmlFor="role">Role</Label>
-          <Select
-            value={formData.role}
-            onValueChange={value => setFormData({ ...formData, role: value })}
-          >
+          <Select value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
@@ -312,10 +235,7 @@ function UserForm({ initialData, onSubmit, onCancel }) {
         </div>
         <div className="space-y-2">
           <Label htmlFor="status">Status</Label>
-          <Select
-            value={formData.status}
-            onValueChange={value => setFormData({ ...formData, status: value })}
-          >
+          <Select value={formData.status} onValueChange={(value) => setFormData({ ...formData, status: value })}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
@@ -330,7 +250,9 @@ function UserForm({ initialData, onSubmit, onCancel }) {
         <Button type="button" variant="outline" onClick={onCancel}>
           Cancel
         </Button>
-        <Button type="submit">{initialData ? 'Update' : 'Create'}</Button>
+        <Button type="submit">
+          {initialData ? 'Update' : 'Create'}
+        </Button>
       </DialogFooter>
     </form>
   )

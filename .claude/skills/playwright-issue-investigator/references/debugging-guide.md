@@ -17,7 +17,7 @@ Opens Playwright Inspector with:
 
 ```typescript
 // Pause at this point
-await page.pause()
+await page.pause();
 
 // Continue manually in inspector
 ```
@@ -35,21 +35,21 @@ npx playwright test --headed --slow-mo=1000
 ## Console Logs
 
 ```typescript
-page.on('console', msg => console.log('PAGE LOG:', msg.text()))
-page.on('pageerror', err => console.log('PAGE ERROR:', err))
+page.on("console", (msg) => console.log("PAGE LOG:", msg.text()));
+page.on("pageerror", (err) => console.log("PAGE ERROR:", err));
 ```
 
 ## Network Debugging
 
 ```typescript
 // Log all requests
-page.on('request', req => console.log('>>', req.method(), req.url()))
-page.on('response', res => console.log('<<', res.status(), res.url()))
+page.on("request", (req) => console.log(">>", req.method(), req.url()));
+page.on("response", (res) => console.log("<<", res.status(), res.url()));
 
 // Mock responses
-await page.route('**/api/users', route => {
-  route.fulfill({ body: JSON.stringify([{ id: 1, name: 'Test' }]) })
-})
+await page.route("**/api/users", (route) => {
+  route.fulfill({ body: JSON.stringify([{ id: 1, name: "Test" }]) });
+});
 ```
 
 ## Common Issues

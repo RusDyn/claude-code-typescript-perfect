@@ -16,17 +16,17 @@ Modern, mobile-first layout patterns using Tailwind CSS.
 {
   /* Full width */
 }
-;<div className="w-full px-4">Full width with padding</div>
+<div className="w-full px-4">Full width with padding</div>;
 
 {
   /* Constrained width */
 }
-;<div className="max-w-7xl mx-auto px-4">{/* 1280px max, centered */}</div>
+<div className="max-w-7xl mx-auto px-4">{/* 1280px max, centered */}</div>;
 
 {
   /* Content width (for reading) */
 }
-;<div className="max-w-2xl mx-auto px-4">{/* 672px max, centered */}</div>
+<div className="max-w-2xl mx-auto px-4">{/* 672px max, centered */}</div>;
 ```
 
 ### Standard Container Sizes
@@ -106,11 +106,11 @@ max-w-7xl   - 1280px  - Maximum app width
 {
   /* 1 column on mobile, 2 on tablet, 3 on desktop */
 }
-;<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   <div className="bg-white p-6 border border-gray-200 rounded-lg">Card 1</div>
   <div className="bg-white p-6 border border-gray-200 rounded-lg">Card 2</div>
   <div className="bg-white p-6 border border-gray-200 rounded-lg">Card 3</div>
-</div>
+</div>;
 ```
 
 ### Auto-Fit Grid (Responsive Cards)
@@ -160,26 +160,26 @@ xl:   1280px  - Desktops
 {
   /* Text size responsive */
 }
-;<h1 className="text-3xl md:text-4xl lg:text-5xl">Responsive Heading</h1>
+<h1 className="text-3xl md:text-4xl lg:text-5xl">Responsive Heading</h1>;
 
 {
   /* Spacing responsive */
 }
-;<div className="p-4 md:p-6 lg:p-8">Responsive padding</div>
+<div className="p-4 md:p-6 lg:p-8">Responsive padding</div>;
 
 {
   /* Layout responsive */
 }
-;<div className="flex flex-col md:flex-row gap-4">
+<div className="flex flex-col md:flex-row gap-4">
   Stacked on mobile, row on tablet+
-</div>
+</div>;
 
 {
   /* Grid responsive */
 }
-;<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   Responsive grid
-</div>
+</div>;
 ```
 
 ## Common Layout Patterns
@@ -311,12 +311,12 @@ xl:   1280px  - Desktops
 {
   /* Mobile: 48px, Desktop: 64px */
 }
-;<section className="py-12 md:py-16">Content</section>
+<section className="py-12 md:py-16">Content</section>;
 
 {
   /* Mobile: 64px, Desktop: 96px */
 }
-;<section className="py-16 md:py-24">Hero content</section>
+<section className="py-16 md:py-24">Hero content</section>;
 ```
 
 ### Content Spacing
@@ -325,18 +325,18 @@ xl:   1280px  - Desktops
 {
   /* Between sections */
 }
-;<div className="space-y-12 md:space-y-16">
+<div className="space-y-12 md:space-y-16">
   <section>...</section>
   <section>...</section>
-</div>
+</div>;
 
 {
   /* Between components */
 }
-;<div className="space-y-6">
+<div className="space-y-6">
   <div>...</div>
   <div>...</div>
-</div>
+</div>;
 ```
 
 ## Mobile Considerations
@@ -347,7 +347,7 @@ xl:   1280px  - Desktops
 {
   /* Minimum 44px height for touch targets */
 }
-;<button className="min-h-[44px] px-4">Touchable Button</button>
+<button className="min-h-[44px] px-4">Touchable Button</button>;
 ```
 
 ### Mobile Navigation
@@ -370,10 +370,10 @@ xl:   1280px  - Desktops
 {
   /* Always stack on mobile */
 }
-;<div className="flex flex-col md:flex-row gap-4">
+<div className="flex flex-col md:flex-row gap-4">
   <div className="flex-1">Left</div>
   <div className="flex-1">Right</div>
-</div>
+</div>;
 ```
 
 ## Layout Checklist
@@ -397,10 +397,10 @@ xl:   1280px  - Desktops
 {
   /* DON'T: Fixed desktop layout */
 }
-;<div className="flex">
+<div className="flex">
   <div className="w-64">Sidebar</div>
   <div className="flex-1">Content</div>
-</div>
+</div>;
 ```
 
 ### ❌ No Max Width
@@ -409,7 +409,7 @@ xl:   1280px  - Desktops
 {
   /* DON'T: Full width on large screens */
 }
-;<div className="w-full p-4">Content spans entire viewport on 4K monitors</div>
+<div className="w-full p-4">Content spans entire viewport on 4K monitors</div>;
 ```
 
 ### ❌ Inconsistent Spacing
@@ -418,12 +418,12 @@ xl:   1280px  - Desktops
 {
   /* DON'T: Random spacing values */
 }
-;<div className="space-y-7">
-  {' '}
+<div className="space-y-7">
+  {" "}
   {/* 28px - off grid */}
   <div className="mb-5">...</div> {/* 20px - off grid */}
   <div className="mt-3">...</div> {/* 12px - okay but inconsistent */}
-</div>
+</div>;
 ```
 
 ## Good Layout Example (Complete Page)
