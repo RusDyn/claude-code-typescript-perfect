@@ -22,7 +22,7 @@ TOOL_INPUT=$(echo "$INPUT" | jq -r '.tool_input // empty')
 # Validate CWD is absolute path and exists
 if [[ ! "$CWD" =~ ^/ ]] || [[ ! -d "$CWD" ]]; then
   echo '{
-    "continue": true,
+    "permissionDecision": "allow",
     "systemMessage": "⚠️  Invalid working directory. Skipping code review."
   }'
   exit 0
@@ -33,14 +33,14 @@ COMMAND=$(echo "$TOOL_INPUT" | jq -r '.command // empty')
 
 # Validate command is a git push command (basic sanitization)
 if [[ -z "$COMMAND" ]]; then
-  echo '{"continue": true}'
+  echo '{"permissionDecision": "allow"}'
   exit 0
 fi
 
 # Only process git push commands
 if [[ ! "$COMMAND" =~ ^git\ push ]]; then
   # Not a git push, allow it to continue
-  echo '{"continue": true}'
+  echo '{"permissionDecision": "allow"}'
   exit 0
 fi
 
@@ -48,7 +48,7 @@ fi
 if ! command -v codex &> /dev/null; then
   # Codex not installed, warn but allow push
   echo '{
-    "continue": true,
+    "permissionDecision": "allow",
     "systemMessage": "⚠️  Codex CLI not found. Install with: npm install -g @codex/cli\nSkipping code review..."
   }'
   exit 0
@@ -101,7 +101,7 @@ TEMP_FILES+=("$REVIEW_OUTPUT")
 SCHEMA_PATH="$CWD/.claude/hooks/codex-output-schema.json"
 if [[ ! "$SCHEMA_PATH" =~ ^"$CWD" ]]; then
   echo '{
-    "continue": true,
+    "permissionDecision": "allow",
     "systemMessage": "⚠️  Invalid schema path. Skipping code review."
   }'
   exit 0
@@ -110,7 +110,7 @@ fi
 # Check if schema exists
 if [[ ! -f "$SCHEMA_PATH" ]]; then
   echo '{
-    "continue": true,
+    "permissionDecision": "allow",
     "systemMessage": "⚠️  Codex schema not found at: '"$SCHEMA_PATH"'\nSkipping code review..."
   }'
   exit 0
@@ -124,7 +124,7 @@ FILES_COUNT=$(echo "$CHANGED_FILES" | wc -l)
 # Check if there are any changes
 if [[ -z "$CHANGED_FILES" ]]; then
   echo '{
-    "continue": true,
+    "permissionDecision": "allow",
     "systemMessage": "ℹ️  No files changed between '"$DIFF_BASE"' and HEAD.\nBranch is up-to-date with remote. Skipping code review."
   }' | jq -c
   exit 0
@@ -200,7 +200,7 @@ if codex exec --cd "$CWD" "$REVIEW_PROMPT" --output-schema "$SCHEMA_PATH" > "$CO
     # Save failed output for debugging
     cp "$CODEX_RAW_OUTPUT" "$CWD/.claude/hooks/codex-failed-output.log"
     echo '{
-      "continue": true,
+      "permissionDecision": "allow",
       "systemMessage": "⚠️  Codex returned invalid JSON. Raw output saved to .claude/hooks/codex-failed-output.log\nProceeding with push..."
     }'
     exit 0
@@ -238,35 +238,47 @@ if codex exec --cd "$CWD" "$REVIEW_PROMPT" --output-schema "$SCHEMA_PATH" > "$CO
 
   if [[ "$OVERALL_CORRECTNESS" == "incorrect" ]] || [[ "$CRITICAL_COUNT" -gt 0 ]]; then
     BLOCK_PUSH=true
-    REVIEW_MESSAGE+="\n❌ Push blocked due to critical issues.\n"
-    REVIEW_MESSAGE+="Review saved to: .claude/hooks/last-review.json\n"
 
-    # Send feedback to stderr so Claude Code can process and fix issues
-    # Exit code 2 with stderr allows Claude to see the issues and fix them
-    echo -e "$REVIEW_MESSAGE" >&2
-    echo "" >&2
-    echo "📋 Please fix the following issues:" >&2
-    echo "" >&2
+    # Build detailed feedback for Claude
+    FEEDBACK_MESSAGE="❌ Code Review Failed - Critical Issues Found\n\n"
+    FEEDBACK_MESSAGE+="📊 Summary:\n"
+    FEEDBACK_MESSAGE+="- Status: $OVERALL_CORRECTNESS\n"
+    FEEDBACK_MESSAGE+="- Confidence: ${CONFIDENCE_PCT}%\n"
+    FEEDBACK_MESSAGE+="- Total Issues: $FINDINGS_COUNT\n"
+    FEEDBACK_MESSAGE+="- Critical Issues: $CRITICAL_COUNT\n\n"
+    FEEDBACK_MESSAGE+="📋 Issues to Fix:\n\n"
 
-    # Show all findings to Claude via stderr
-    jq -r '.findings[] | "[\(.priority | ascii_upcase)] \(.title)\n  File: \(.code_location.file_path):\(.code_location.line_start)-\(.code_location.line_end)\n  \(.body)\n"' "$REVIEW_OUTPUT" 2>/dev/null >&2 || true
+    # Add all findings to feedback
+    FEEDBACK_MESSAGE+="$CRITICAL_ISSUES"
 
-    # Also output JSON for structured handling
-    jq -nc --arg msg "Code review failed with critical issues. See stderr for details." '{
-      "continue": false,
-      "stopReason": "Code review failed with critical issues",
-      "systemMessage": $msg
-    }'
+    FEEDBACK_MESSAGE+="\n💡 Next Steps:\n"
+    FEEDBACK_MESSAGE+="1. Review the issues above\n"
+    FEEDBACK_MESSAGE+="2. Fix the code in the affected files\n"
+    FEEDBACK_MESSAGE+="3. Retry the git push command\n\n"
+    FEEDBACK_MESSAGE+="Full review saved to: .claude/hooks/last-review.json"
 
-    exit 2  # Exit code 2 blocks the push AND feeds stderr back to Claude for automatic processing
+    # Use JSON with permissionDecision: deny
+    # This blocks the tool call AND shows the reason to Claude (who can then fix issues)
+    jq -nc \
+      --arg reason "$(echo -e "$FEEDBACK_MESSAGE")" \
+      --arg summary "Code review found $CRITICAL_COUNT critical issue(s)" \
+      '{
+        "permissionDecision": "deny",
+        "permissionDecisionReason": $reason,
+        "systemMessage": $summary
+      }'
+
+    exit 0  # Exit 0 with permissionDecision: deny blocks the command but allows Claude to continue
   else
     REVIEW_MESSAGE+="\n✅ Code review passed. Safe to push.\n"
     REVIEW_MESSAGE+="Review saved to: .claude/hooks/last-review.json\n"
 
-    jq -nc --arg msg "$(echo -e "$REVIEW_MESSAGE")" '{
-      "continue": true,
-      "systemMessage": $msg
-    }'
+    jq -nc \
+      --arg msg "$(echo -e "$REVIEW_MESSAGE")" \
+      '{
+        "permissionDecision": "allow",
+        "systemMessage": $msg
+      }'
 
     exit 0
   fi
@@ -279,10 +291,12 @@ else
     cp "$CODEX_RAW_OUTPUT" "$CWD/.claude/hooks/codex-failed-execution.log"
   fi
 
-  jq -nc --arg err "$ERROR_MSG" '{
-    "continue": true,
-    "systemMessage": ("⚠️  Codex code review failed: " + $err + "\nOutput saved to .claude/hooks/codex-failed-execution.log\nProceeding with push...")
-  }'
+  jq -nc \
+    --arg err "$ERROR_MSG" \
+    '{
+      "permissionDecision": "allow",
+      "systemMessage": ("⚠️  Codex code review failed: " + $err + "\nOutput saved to .claude/hooks/codex-failed-execution.log\nProceeding with push...")
+    }'
 
   exit 0
 fi
