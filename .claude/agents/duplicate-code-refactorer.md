@@ -74,6 +74,7 @@ You are an expert senior developer specializing in code optimization through dup
 ## Output Expectations
 
 When you complete your work, you will provide:
+
 1. Summary of duplicates found (before metrics)
 2. List of refactoring actions taken
 3. Code reduction statistics (lines saved, duplicate percentage reduced)

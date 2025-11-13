@@ -5,6 +5,7 @@ I'll help you create a comprehensive post-incident review. This is crucial for l
 ## 1. Incident Summary
 
 First, let's gather the basic information:
+
 - **Incident ID/Title**: [I'll help generate]
 - **Date**: [When did it occur?]
 - **Duration**: [Total downtime/impact time]
@@ -14,6 +15,7 @@ First, let's gather the basic information:
 ## 2. Timeline Reconstruction
 
 I'll help you build a detailed timeline:
+
 - When was the issue first detected?
 - How was it detected? (alerts, customer reports, etc.)
 - What were the key events during resolution?
@@ -22,6 +24,7 @@ I'll help you build a detailed timeline:
 ## 3. Impact Analysis
 
 Let's quantify the impact:
+
 - Number of users affected
 - Revenue/business impact
 - SLA violations
@@ -30,6 +33,7 @@ Let's quantify the impact:
 ## 4. Root Cause Analysis
 
 I'll guide you through:
+
 - What was the immediate cause?
 - What were the contributing factors?
 - Why did our systems/processes fail to prevent this?
@@ -38,6 +42,7 @@ I'll guide you through:
 ## 5. What Went Well
 
 Important to recognize:
+
 - Effective responses
 - Quick decisions that helped
 - Team coordination successes
@@ -46,6 +51,7 @@ Important to recognize:
 ## 6. What Went Poorly
 
 Be honest about:
+
 - Delayed responses
 - Communication failures
 - Missing tools/runbooks
@@ -54,6 +60,7 @@ Be honest about:
 ## 7. Action Items
 
 I'll help create specific, actionable improvements:
+
 - [ ] Technical fixes (with owners and deadlines)
 - [ ] Process improvements
 - [ ] Monitoring/alerting additions
@@ -63,6 +70,7 @@ I'll help create specific, actionable improvements:
 ## 8. Lessons Learned
 
 Key takeaways for the team:
+
 - Technical lessons
 - Process lessons
 - Communication lessons
@@ -70,6 +78,7 @@ Key takeaways for the team:
 ## Template Output
 
 I'll generate a formatted document you can share with:
+
 - Executive summary
 - Detailed timeline
 - Action items with owners

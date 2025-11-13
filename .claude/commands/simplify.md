@@ -3,6 +3,7 @@
 You are tasked with simplifying overly complex code while maintaining functionality.
 
 ## Process:
+
 1. Analyze the provided code for complexity issues
 2. Identify opportunities to:
    - Reduce nesting levels
@@ -14,6 +15,7 @@ You are tasked with simplifying overly complex code while maintaining functional
 5. Document any behavior changes
 
 ## Guidelines:
+
 - Prefer explicit over clever
 - Reduce cyclomatic complexity
 - Eliminate dead code

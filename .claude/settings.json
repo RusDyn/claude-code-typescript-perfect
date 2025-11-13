@@ -1,0 +1,45 @@
+{
+  "enabledMcpjsonServers": [
+    "context7",
+    "sequential-thinking",
+    "sentry",
+    "playwright"
+  ],
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 60,
+            "command": "bash -lc \".claude/hooks/stop_type_lint_guard\""
+          },
+          {
+            "type": "command",
+            "command": "bash -lc '.claude/hooks/bell \"Нужны правки: TypeCheck/Lint\"'"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -lc '.claude/hooks/bell \"Нужны правки: TypeCheck/Lint\"'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "python3 .claude/hooks/guard_git.py" }
+        ]
+      }
+    ]
+  }
+}

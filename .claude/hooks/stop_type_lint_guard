@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+payload="$(cat || true)"
+# избегаем бесконечного цикла (если уже stop_hook_active=true)
+if printf '%s' "$payload" | grep -q '"stop_hook_active":\s*true'; then
+  exit 0
+fi
+
+# Create temp file for output
+temp_file=$(mktemp)
+trap 'rm -f "$temp_file"' EXIT
+
+# Run quality:fix and capture output
+if npm run quality:fix >"$temp_file" 2>&1; then
+  # Quality fix succeeded - allow Claude Code to stop
+  exit 0
+else
+  # Quality fix failed - show output and block Claude Code from stopping
+  echo "Quality checks failed:" >&2
+  cat "$temp_file" >&2
+  exit 2
+fi

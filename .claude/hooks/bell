@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Usage: .claude/hooks/bell "сообщение"
+msg="${1:-Claude Code}"
+# стандартный терминальный BEL
+printf "\a" >/dev/tty 2 || true

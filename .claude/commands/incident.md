@@ -5,6 +5,7 @@ IMMEDIATE INCIDENT RESPONSE MODE ACTIVATED. I will help you resolve this product
 ## 1. First, let me understand the situation
 
 Tell me:
+
 - What symptoms are users experiencing?
 - When did this start?
 - What is the scope/impact?
@@ -13,6 +14,7 @@ Tell me:
 ## 2. Immediate Mitigation
 
 Based on the symptoms, I'll help you:
+
 - Identify quick mitigation options (rollback, feature flags, scaling)
 - Execute emergency procedures
 - Communicate status updates
@@ -20,6 +22,7 @@ Based on the symptoms, I'll help you:
 ## 3. Root Cause Investigation
 
 I'll systematically:
+
 - Check recent commits: `git log --oneline -20`
 - Review application logs for errors
 - Analyze metrics for anomalies
@@ -47,6 +50,7 @@ npm run scale:emergency
 ## 5. Fix Implementation
 
 Once we identify the issue, I'll:
+
 - Create a minimal fix
 - Test the fix locally
 - Deploy with monitoring
@@ -55,12 +59,14 @@ Once we identify the issue, I'll:
 ## 6. Documentation
 
 I'll help document:
+
 - Timeline of events
 - Actions taken
 - Root cause
 - Prevention measures
 
-**IMPORTANT**: 
+**IMPORTANT**:
+
 - User impact first, root cause second
 - Small, safe changes only
 - Test everything before deploying

@@ -14,7 +14,7 @@ export default {
     (filenames) => {
       const tests = filenames
         .map(f => f.replace(/\.ts$/, '.test.ts'));
-      return tests.length ? `vitest run ${tests.join(' ')} --reporter=verbose --run` : true;
+      return tests.length > 0 ? `vitest run ${tests.join(' ')} --reporter=verbose --run` : true;
     }
   ],
   

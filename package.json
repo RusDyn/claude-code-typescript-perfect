@@ -1,6 +1,7 @@
 {
   "name": "claude-optimized-typescript-project",
   "version": "1.0.0",
+  "private": true,
   "type": "module",
   "engines": {
     "node": ">=18.0.0",
@@ -39,6 +40,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18.0.0",
     "@commitlint/config-conventional": "^18.0.0",
+    "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.0.0",
     "@playwright/test": "^1.40.0",
     "@types/node": "^20.0.0",
@@ -48,7 +50,11 @@
     "@vitest/ui": "^1.0.0",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-functional": "^9.0.2",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-security": "^3.0.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-sonarjs": "^1.0.0",
     "eslint-plugin-unicorn": "^55.0.0",
     "husky": "^8.0.0",
@@ -69,6 +75,11 @@
     ],
     "*.{json,md,yml}": [
       "prettier --write"
+    ]
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
     ]
   }
 }

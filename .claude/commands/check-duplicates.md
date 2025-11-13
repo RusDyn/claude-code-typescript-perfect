@@ -3,6 +3,7 @@
 Analyze the codebase for duplicate or similar functionality.
 
 ## Process:
+
 1. Search for similar function names and patterns
 2. Identify duplicate logic blocks
 3. Find repeated utility functions
@@ -10,6 +11,7 @@ Analyze the codebase for duplicate or similar functionality.
 5. Suggest consolidation opportunities
 
 ## Output Format:
+
 - List of potential duplicates with file locations
 - Similarity assessment (identical, similar, related)
 - Consolidation recommendations
